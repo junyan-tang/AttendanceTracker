@@ -14,7 +14,7 @@ public interface Course {
    * @param val: the new name of the student
    * @return: true if the name is modified successfully, false otherwise
    */
-  Boolean modifyName(String key, String val);
+  Boolean modifyName(String oldName, String newName);
 
   /**
    * Notify all participants of the course

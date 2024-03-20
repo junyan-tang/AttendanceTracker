@@ -1,12 +1,8 @@
 package edu.duke.ece651.team4.server;
 
-import edu.duke.ece651.team4.server.Course;
-import edu.duke.ece651.team4.server.User;
-import edu.duke.ece651.team4.server.Attendance;
-import edu.duke.ece651.team4.server.MessageSender;
 import java.util.LinkedHashMap;
 
-public class Lecture implements Course{
+public class Lecture implements Course {
   private int courseId;
   private String courseName;
   private LinkedHashMap<String, User> studentMap;
@@ -14,6 +10,85 @@ public class Lecture implements Course{
   private LinkedHashMap<String, Attendance> attendanceMap;
   private MessageSender messageSender;
 
-  
+  public int getId() {
+    return courseId;
+  }
+
+  public String getName() {
+    return courseName;
+  }
+
+  public Lecture(int courseId,
+      String courseName,
+      LinkedHashMap<String, User> studentMap,
+      LinkedHashMap<String, User> professorMap,
+      LinkedHashMap<String, Attendance> attendanceMap,
+      MessageSender messageSender) 
+  {
+    this.courseId = courseId;
+    this.courseName = courseName;
+    this.studentMap = studentMap;
+    this.professorMap = professorMap;
+    this.attendanceMap = attendanceMap;
+    this.messageSender = messageSender;
+  }
+
+  public Boolean modifyName(String oldName, String newName) {
+    if(studentMap.containsKey(oldName)) {
+
+      User tempStudent = studentMap.get(oldName);
+      studentMap.remove(oldName);
+      tempStudent.changeName(newName);
+      studentMap.put(newName, tempStudent);
+      return true;
+    }else{
+      return false;
+    }
+  }
+
+  public void notifyAll(String message) {
+    for (User student : studentMap.values()) {
+      student.updateStatus(message);
+  }
+
+  for (User professor : professorMap.values()) {
+    professor.updateStatus(message);
+  }
+
+}
+
+public String generateReport() {
+  String report = "";
+  for (Attendance attendance : attendanceMap.values()) {
+    report += attendance.getReport();
+  }
+  return report;
+}
+
+public void addStudent(User student) {
+  studentMap.put(student.getName(), student);
+}
+
+public Boolean removeStudent(String studentName) {
+  if(!studentMap.containsKey(studentName)) {
+    return false;
+  }
+  studentMap.remove(studentName);
+  return true;
+}
+
+public void addProfessor(User professor) {
+  professorMap.put(professor.getName(), professor);
+}
+
+public Boolean removeProfessor(String professorName) {
+  if(!professorMap.containsKey(professorName)) {
+    return false;
+  }
+  professorMap.remove(professorName);
+  return true;
+}
+
+
 
 }
