@@ -1,21 +1,20 @@
 package edu.duke.ece651.team4.server;
 
 import java.util.LinkedHashMap;
+import java.util.Date;
+import java.util.List;
 
-// import java.io.BufferedReader;
-// import java.io.PrintStream;
 
 public class Lecture implements Course {
   private int courseId;
   private String courseName;
   private LinkedHashMap<String, User> studentMap;
   private LinkedHashMap<String, User> professorMap;
-  private LinkedHashMap<String, Attendance> attendanceMap;
+  private LinkedHashMap<Date, Attendance> attendanceMap;
   private MessageSender messageSender;
 
   
-  // final BufferedReader inputReader;
-  // final PrintStream outputWriter;
+
 
   public int getId() {
     return courseId;
@@ -29,10 +28,8 @@ public class Lecture implements Course {
       String courseName,
       LinkedHashMap<String, User> studentMap,
       LinkedHashMap<String, User> professorMap,
-      LinkedHashMap<String, Attendance> attendanceMap,
+      LinkedHashMap<Date, Attendance> attendanceMap,
       MessageSender messageSender
-      // BufferedReader inputReader,
-      // PrintStream outputWriter
       ) {
     this.courseId = courseId;
     this.courseName = courseName;
@@ -40,8 +37,6 @@ public class Lecture implements Course {
     this.professorMap = professorMap;
     this.attendanceMap = attendanceMap;
     this.messageSender = messageSender;
-    // this.inputReader = inputReader;
-    // this.outputWriter = outputWriter;
   }
 
   public Boolean modifyName(String oldName, String newName) {
@@ -59,13 +54,19 @@ public class Lecture implements Course {
 
   public void notifyAll(String message) {
     for (User student : studentMap.values()) {
-      student.updateStatus(message);
+      // student.updateStatus(message);
+      notifySingle(message, student);
     }
 
     for (User professor : professorMap.values()) {
-      professor.updateStatus(message);
+      //professor.updateStatus(message);
+      notifySingle(message, professor);
     }
 
+  }
+
+  public void notifySingle(String message, User user) {
+    user.updateStatus(message);
   }
 
   public String generateReport() {
@@ -74,6 +75,10 @@ public class Lecture implements Course {
       report += attendance.getReport();
     }
     return report;
+  }
+
+  public List<User> getStudentList() {
+    return (List<User>) studentMap.values();
   }
 
   public void addStudent(User student) {
@@ -101,10 +106,10 @@ public class Lecture implements Course {
   }
 
   public void addAttendance(Attendance attendance) {
-    attendanceMap.put(attendance.getCourseDate().toString(), attendance);
+    attendanceMap.put(attendance.getCourseDate(), attendance);
   }
 
-  public Boolean removeAttendance(String date) {
+  public Boolean removeAttendance(Date date) {
     if (!attendanceMap.containsKey(date)) {
       return false;
     }
@@ -112,13 +117,8 @@ public class Lecture implements Course {
     return true;
   }
 
-  // public void haveClass(){
-
-  //   Attendance new_attendance = new Attendance(courseId, courseName, new LinkedHashMap<User, AttendanceStatus>());
-  //   for (User student : studentMap.values()) {
-  //     new_attendance.recordAttendance(student, AttendanceStatus.DEFAULT, "");
-  //   }
-
-  // }
+  public Attendance getAttendance(Date date) {
+    return attendanceMap.get(date);
+  }
 
 }

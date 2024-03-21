@@ -2,6 +2,7 @@ package edu.duke.ece651.team4.server;
 
 import java.util.Date;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.HashMap;
 
 enum AttendanceStatus {
@@ -25,6 +26,22 @@ public class Attendance {
 
   public Date getCourseDate() {
     return courseDate;
+  }
+
+  public int getCourseId() {
+    return courseId;
+  }
+
+  public String getCourseName() {
+    return courseName;
+  }
+
+  public LinkedHashMap<User, AttendanceStatus> getAttendanceRecord() {
+    return attendanceRecord;
+  }
+
+  public HashMap<User, String> getExcuse() {
+    return excuse;
   }
 
   public String getReport() {
