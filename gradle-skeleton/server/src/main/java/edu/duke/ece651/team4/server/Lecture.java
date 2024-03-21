@@ -2,6 +2,9 @@ package edu.duke.ece651.team4.server;
 
 import java.util.LinkedHashMap;
 
+// import java.io.BufferedReader;
+// import java.io.PrintStream;
+
 public class Lecture implements Course {
   private int courseId;
   private String courseName;
@@ -9,6 +12,10 @@ public class Lecture implements Course {
   private LinkedHashMap<String, User> professorMap;
   private LinkedHashMap<String, Attendance> attendanceMap;
   private MessageSender messageSender;
+
+  
+  // final BufferedReader inputReader;
+  // final PrintStream outputWriter;
 
   public int getId() {
     return courseId;
@@ -23,13 +30,18 @@ public class Lecture implements Course {
       LinkedHashMap<String, User> studentMap,
       LinkedHashMap<String, User> professorMap,
       LinkedHashMap<String, Attendance> attendanceMap,
-      MessageSender messageSender) {
+      MessageSender messageSender
+      // BufferedReader inputReader,
+      // PrintStream outputWriter
+      ) {
     this.courseId = courseId;
     this.courseName = courseName;
     this.studentMap = studentMap;
     this.professorMap = professorMap;
     this.attendanceMap = attendanceMap;
     this.messageSender = messageSender;
+    // this.inputReader = inputReader;
+    // this.outputWriter = outputWriter;
   }
 
   public Boolean modifyName(String oldName, String newName) {
@@ -100,13 +112,13 @@ public class Lecture implements Course {
     return true;
   }
 
-  public void haveClass(){
+  // public void haveClass(){
 
-    Attendance new_attendance = new Attendance(courseId, courseName, new LinkedHashMap<User, AttendanceStatus>());
-    for (User student : studentMap.values()) {
-      new_attendance.recordAttendance(student, AttendanceStatus.DEFAULT, "");
-    }
-    
-  }
+  //   Attendance new_attendance = new Attendance(courseId, courseName, new LinkedHashMap<User, AttendanceStatus>());
+  //   for (User student : studentMap.values()) {
+  //     new_attendance.recordAttendance(student, AttendanceStatus.DEFAULT, "");
+  //   }
+
+  // }
 
 }
