@@ -5,10 +5,6 @@ import java.io.PrintStream;
 // import java.util.LinkedHashMap;
 import java.io.IOException;
 
-// enum AttendanceStatus {
-//   PRESENT, ABSENT, TARDY, EXCUSED, DEFAULT
-// }
-
 public class TrackCtrl {
   final BufferedReader inputReader;
   final PrintStream outputWriter;

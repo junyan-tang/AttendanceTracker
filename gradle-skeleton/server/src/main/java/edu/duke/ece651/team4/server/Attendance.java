@@ -43,6 +43,14 @@ public class Attendance {
     return attendanceRecord;
   }
 
+  public List<User> getStudentList() {
+    return List.copyOf(attendanceRecord.keySet());
+  }
+
+  public AttendanceStatus getAttendanceStatus(User user) {
+    return attendanceRecord.get(user);
+  }
+
   public HashMap<User, String> getExcuse() {
     return excuse;
   }
