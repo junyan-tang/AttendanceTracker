@@ -12,7 +12,6 @@ public class Lecture implements Course {
   private LinkedHashMap<String, User> professorMap;
   private LinkedHashMap<Date, Attendance> attendanceMap;
   private MessageSender messageSender;
-
   
 
 
