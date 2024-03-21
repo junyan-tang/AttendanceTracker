@@ -5,9 +5,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.HashMap;
 
-enum AttendanceStatus {
-  PRESENT, ABSENT, TARDY, EXCUSED, DEFAULT
-}
+// enum AttendanceStatus {
+//   PRESENT, ABSENT, TARDY, EXCUSED, DEFAULT
+// }
 
 public class Attendance {
   private Date courseDate;
@@ -17,11 +17,14 @@ public class Attendance {
   private HashMap<User, String> excuse;
 
 
-  public Attendance(int courseId, String courseName, LinkedHashMap<User, AttendanceStatus> attendanceRecord) {
+  public Attendance(int courseId, String courseName, List<User> studentList) {
     this.courseId = courseId;
     this.courseName = courseName;
     this.courseDate = new Date(courseDate.getTime());
-    this.attendanceRecord = attendanceRecord;
+    this.attendanceRecord = new LinkedHashMap<>();
+    for(User student : studentList) {
+      attendanceRecord.put(student, AttendanceStatus.DEFAULT);
+    }
   }
 
   public Date getCourseDate() {
