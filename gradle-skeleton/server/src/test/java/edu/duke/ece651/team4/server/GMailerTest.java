@@ -5,6 +5,6 @@ import org.junit.jupiter.api.Test;
 public class GMailerTest {
     @Test
     void testSendMail() throws Exception{
-        new GMailer().sendMail("A new message", "Dear reader, you succeed.");
+        new GMailer().sendMail("attendancefor651@gmail.com","A new message", "Dear reader, you succeed.");
     }
 }

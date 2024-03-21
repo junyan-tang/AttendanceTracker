@@ -67,7 +67,7 @@ public class GMailer {
         return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
     }
 
-    public void sendMail(String subject, String message)throws Exception {
+    public void sendMail(String Recipient, String subject, String message)throws Exception {
         
 
         // Encode as MIME message
@@ -76,7 +76,7 @@ public class GMailer {
         MimeMessage email = new MimeMessage(session);
         email.setFrom(new InternetAddress(TEST_EMAIL));
         email.addRecipient(javax.mail.Message.RecipientType.TO,
-                new InternetAddress(TEST_EMAIL));
+                new InternetAddress(Recipient));
         email.setSubject(subject);
         email.setText(message);
 

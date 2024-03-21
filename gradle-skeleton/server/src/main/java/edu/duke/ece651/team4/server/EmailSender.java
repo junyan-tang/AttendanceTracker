@@ -4,21 +4,22 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-public class EmailSender implements MessageSender {
+public class EmailSender implements MessageSender{
     private GMailer gmailsender;
+    private static final String subject = "test Mail";
     
     public String generateMessage() {
         return null;
     }
 
-    public boolean sendMessage(String destination, String message) {
+    public boolean sendMessage(String destination, String message)throws Exception {
         if (!isValidEmail(destination)) {
             System.out.println("Invalid email address");
             return false;
         }
         System.out.println("Sending message to " + destination + ": " + message);
         // send email
-
+        gmailsender.sendMail(destination, subject, message);
         // finish sending email
         return true;
     }
