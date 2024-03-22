@@ -12,4 +12,8 @@ public class Account {
     public String getNetid() {
         return this.netid;
     }
+
+    public String getPassword() {
+        return this.password;
+    }
 }

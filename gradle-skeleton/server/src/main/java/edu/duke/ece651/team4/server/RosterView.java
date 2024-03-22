@@ -1,19 +1,11 @@
 package edu.duke.ece651.team4.server;
 import java.util.List;
-import java.util.HashMap;
 
 public class RosterView {
     private final Attendance toDisplay;
-    private final HashMap<AttendanceStatus, String> status;
 
     public RosterView(Attendance toDisplay) {
         this.toDisplay = toDisplay;
-        this.status = new HashMap<>();
-        status.put(AttendanceStatus.PRESENT, "PRESENT");
-        status.put(AttendanceStatus.ABSENT, "ABSENT");
-        status.put(AttendanceStatus.TARDY, "TARDY");
-        status.put(AttendanceStatus.EXCUSED, "EXCUSED");
-        status.put(AttendanceStatus.DEFAULT, "DEFAULT");
     }
 
     public String displayRoster() {
@@ -23,7 +15,7 @@ public class RosterView {
         for(User student:studentList) {
             view.append(student.getName());
             view.append("     ");
-            String displayStatus = status.get(toDisplay.getAttendanceStatus(student));
+            String displayStatus = toDisplay.getAttendanceStatus(student).toString();
             if(displayStatus == null) {
                 view.append("     ");
             }
