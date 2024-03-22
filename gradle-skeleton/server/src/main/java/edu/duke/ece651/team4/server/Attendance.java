@@ -1,6 +1,6 @@
 package edu.duke.ece651.team4.server;
 
-import java.util.Date;
+import java.time.Instant;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.HashMap;
@@ -10,7 +10,7 @@ import java.util.HashMap;
 // }
 
 public class Attendance {
-  private Date courseDate;
+  private Instant courseDate;
   private int courseId;
   private String courseName;
   private LinkedHashMap<User, AttendanceStatus> attendanceRecord;
@@ -20,14 +20,14 @@ public class Attendance {
   public Attendance(int courseId, String courseName, List<User> studentList) {
     this.courseId = courseId;
     this.courseName = courseName;
-    this.courseDate = new Date(courseDate.getTime());
+    this.courseDate = Instant.now();
     this.attendanceRecord = new LinkedHashMap<>();
     for(User student : studentList) {
       attendanceRecord.put(student, AttendanceStatus.DEFAULT);
     }
   }
 
-  public Date getCourseDate() {
+  public Instant getCourseDate() {
     return courseDate;
   }
 

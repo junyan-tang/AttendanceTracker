@@ -1,7 +1,7 @@
 package edu.duke.ece651.team4.server;
 
 import java.util.LinkedHashMap;
-import java.util.Date;
+import java.time.Instant;
 import java.util.List;
 
 
@@ -10,7 +10,7 @@ public class Lecture implements Course {
   private String courseName;
   private LinkedHashMap<String, User> studentMap;
   private LinkedHashMap<String, User> professorMap;
-  private LinkedHashMap<Date, Attendance> attendanceMap;
+  private LinkedHashMap<Instant, Attendance> attendanceMap;
   private MessageSender messageSender;
   
 
@@ -27,7 +27,7 @@ public class Lecture implements Course {
       String courseName,
       LinkedHashMap<String, User> studentMap,
       LinkedHashMap<String, User> professorMap,
-      LinkedHashMap<Date, Attendance> attendanceMap,
+      LinkedHashMap<Instant, Attendance> attendanceMap,
       MessageSender messageSender
       ) {
     this.courseId = courseId;
@@ -108,7 +108,7 @@ public class Lecture implements Course {
     attendanceMap.put(attendance.getCourseDate(), attendance);
   }
 
-  public Boolean removeAttendance(Date date) {
+  public Boolean removeAttendance(Instant date) {
     if (!attendanceMap.containsKey(date)) {
       return false;
     }
@@ -116,7 +116,7 @@ public class Lecture implements Course {
     return true;
   }
 
-  public Attendance getAttendance(Date date) {
+  public Attendance getAttendance(Instant date) {
     return attendanceMap.get(date);
   }
 
