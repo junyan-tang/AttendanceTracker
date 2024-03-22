@@ -13,6 +13,13 @@ public class Student implements User {
     this.email = email;
   }
 
+  public Student(String phoneNum, String legalName, String email) {
+    this.phoneNum = phoneNum;
+    this.legalName = legalName;
+    this.displayName = legalName;
+    this.email = email;
+  }
+
   public String getName() {
     return displayName;
   }
