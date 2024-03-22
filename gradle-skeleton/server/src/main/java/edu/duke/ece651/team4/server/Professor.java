@@ -10,4 +10,26 @@ public class Professor implements User {
     this.name = name;
     this.email = email;
   }
+
+  public String getName() {
+    return name;
+  }
+
+  public String getPhoneNum() {
+    return phoneNum;
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public Boolean changeName(String newName){
+    this.name = newName;
+    return true;
+  }
+
+  public Boolean updateStatus(String message){
+    return true;
+  }
+
 }

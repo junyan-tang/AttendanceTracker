@@ -12,4 +12,25 @@ public class Student implements User {
     this.displayName = displayName;
     this.email = email;
   }
+
+  public String getName() {
+    return displayName;
+  }
+
+  public String getPhoneNum() {
+    return phoneNum;
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public Boolean changeName(String newName){
+    this.displayName = newName;
+    return true;
+  }
+
+  public Boolean updateStatus(String message){
+    return true;
+  }
 }

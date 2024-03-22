@@ -16,7 +16,9 @@ public class TrackCtrl {
   
   public void haveClass(Lecture lecture) throws IOException{
     Attendance new_attendance = new Attendance(lecture.getId(), lecture.getName(), lecture.getStudentList());
+    RosterView rosterView = new RosterView(new_attendance);
     for (User student : lecture.getStudentList()) {
+      outputWriter.println(rosterView.displayRoster());
       String prompt = "Input the status for student: " + student.getName()+", P for present, A for absent, T for tardy, E for excused";
       outputWriter.println(prompt);
       String status = inputReader.readLine();
