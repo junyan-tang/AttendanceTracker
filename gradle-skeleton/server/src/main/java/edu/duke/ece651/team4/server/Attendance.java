@@ -1,6 +1,9 @@
 package edu.duke.ece651.team4.server;
 
 import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.HashMap;
@@ -29,6 +32,14 @@ public class Attendance {
 
   public Instant getCourseDate() {
     return courseDate;
+  }
+
+  public String getCourseDateStr() {
+    ZonedDateTime zonedDateTime = courseDate.atZone(ZoneId.of("UTC"));
+
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+    return zonedDateTime.format(formatter);
   }
 
   public int getCourseId() {
