@@ -10,7 +10,7 @@ public class Lecture implements Course {
   private String courseName;
   private LinkedHashMap<String, User> studentMap;
   private LinkedHashMap<String, User> professorMap;
-  private LinkedHashMap<Instant, Attendance> attendanceMap;
+  private LinkedHashMap<String, Attendance> attendanceMap;
   private MessageSender messageSender;
   
 
@@ -27,7 +27,7 @@ public class Lecture implements Course {
       String courseName,
       LinkedHashMap<String, User> studentMap,
       LinkedHashMap<String, User> professorMap,
-      LinkedHashMap<Instant, Attendance> attendanceMap,
+      LinkedHashMap<String, Attendance> attendanceMap,
       MessageSender messageSender
       ) {
     this.courseId = courseId;
@@ -105,10 +105,10 @@ public class Lecture implements Course {
   }
 
   public void addAttendance(Attendance attendance) {
-    attendanceMap.put(attendance.getCourseDate(), attendance);
+    attendanceMap.put(attendance.getCourseDateStr(), attendance);
   }
 
-  public Boolean removeAttendance(Instant date) {
+  public Boolean removeAttendance(String date) {
     if (!attendanceMap.containsKey(date)) {
       return false;
     }
@@ -116,8 +116,21 @@ public class Lecture implements Course {
     return true;
   }
 
-  public Attendance getAttendance(Instant date) {
+  public Attendance getAttendance(String date) {
     return attendanceMap.get(date);
+  }
+
+  public Boolean modifyCertainAttendance(String date, String studentName, AttendanceStatus status,String excuse){
+    if ((!attendanceMap.containsKey(date)) || (!studentMap.containsKey(studentName))) {
+      return false;
+    }
+    Attendance attendance = attendanceMap.get(date);
+    attendance.recordAttendance(studentMap.get(studentName), status, excuse);
+    return true;
+  }
+
+  public Boolean hasAttendance(String date) {
+    return attendanceMap.containsKey(date);
   }
 
 }

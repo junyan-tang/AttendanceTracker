@@ -69,8 +69,8 @@ public class Attendance {
   public String getReport() {
     StringBuilder sb = new StringBuilder();
     sb.append("Course: " + courseName + "\n");
-    sb.append("Course" + courseId + "\n");
-    sb.append("Date: " + courseDate + "\n");
+    sb.append("Course ID: " + courseId + "\n");
+    sb.append("Date: " + this.getCourseDateStr() + "\n");
     int present = 0;
     int absent = 0;
     int tardy = 0;

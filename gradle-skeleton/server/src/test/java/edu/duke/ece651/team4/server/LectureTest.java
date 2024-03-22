@@ -26,33 +26,43 @@ public class LectureTest {
     studentMap.put("Jack", jack);
 
 
-    Lecture lecture = new Lecture(1, "CPS", studentMap, null, new LinkedHashMap<Instant, Attendance>(), null);
+    Lecture lecture = new Lecture(1, "CPS", studentMap, null, new LinkedHashMap<String, Attendance>(), null);
     Attendance attendance = new Attendance(1, "CPS", studentList);
 
     lecture.addAttendance(attendance);
     assertTrue(lecture.modifyName("Jack", "jerry"));
     assertFalse(lecture.modifyName("Tom", "jerry"));
     assertEquals(jack.getName(), "jerry");
-    assertEquals(attendance.getCourseDateStr(),"2024-03-21");
-
-    
-
+    lecture.notifySingle(null, jack);
+    String report = "Course: CPS\n" +
+                    "Course ID: 1\n"+
+                    "Date: 2024-03-21\n" +
+                    "John DEFAULT\n" +
+                    "Jane DEFAULT\n" +
+                    "jerry DEFAULT\n"+
+                    "Present: 0\n" +
+                    "Absent: 0\n" +
+                    "Tardy: 0\n" +
+                    "Excused: 0\n";
+    assertEquals(lecture.generateReport(), report);
+    // assertEquals(attendance.getCourseDateStr(),"2024-03-21");
   }
 
-  @Test
-  void testAddStudent() {
+  // @Test
+  // void testAddStudent() {
 
-  }
+  // }
 
   @Test
   void testGenerateReport() {
 
-  }
-
-  @Test
-  void testModifyName() {
 
   }
+
+  // @Test
+  // void testModifyName() {
+
+  // }
 
   @Test
   void testNotifySingle() {
