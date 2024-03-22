@@ -1,15 +1,17 @@
 package edu.duke.ece651.team4.server;
 
 public class Login {
-    private final User user;
+    private final String username;
     private final String password;
 
-    public Login(User user, String password) {
-        this.user = user;
+    public Login(String user, String password) {
+        this.username = user;
         this.password = password;
     }
-
-    public boolean checkPassword(String password) {
-        return this.password.equals(password);
+    public String getUser() {
+        return this.username;
+    }
+    public String getPassword() {
+        return this.password;
     }
 }

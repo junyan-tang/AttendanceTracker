@@ -41,7 +41,7 @@ public class RosterView {
         header.append(":");
         header.append(toDisplay.getCourseName());
         header.append("     ");
-        header.append(toDisplay.getCourseDate());
+        header.append(toDisplay.getCourseDateStr());
         header.append("\n");
         return header.toString();
     }
