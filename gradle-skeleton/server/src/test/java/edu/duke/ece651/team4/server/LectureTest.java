@@ -30,7 +30,12 @@ public class LectureTest {
     Attendance attendance = new Attendance(1, "CPS", studentList);
 
     lecture.addAttendance(attendance);
+    assertTrue(lecture.modifyName("Jack", "jerry"));
+    assertFalse(lecture.modifyName("Tom", "jerry"));
+    assertEquals(jack.getName(), "jerry");
+    assertEquals(attendance.getCourseDateStr(),"2024-03-21");
 
+    
 
   }
 

@@ -35,7 +35,7 @@ public class Attendance {
   }
 
   public String getCourseDateStr() {
-    ZonedDateTime zonedDateTime = courseDate.atZone(ZoneId.of("UTC"));
+    ZonedDateTime zonedDateTime = courseDate.atZone(ZoneId.of("America/New_York"));
 
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
