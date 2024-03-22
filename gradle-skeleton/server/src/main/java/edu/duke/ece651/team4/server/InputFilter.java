@@ -5,6 +5,5 @@ import java.io.FileReader;
 import java.util.List;
 
 public class InputFilter {
-  private final BufferedReader inputReader;
 
 }
