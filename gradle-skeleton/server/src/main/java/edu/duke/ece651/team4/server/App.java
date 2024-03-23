@@ -9,9 +9,6 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.io.IOException;
 
-import edu.duke.ece651.team4.shared.MyName;
-
-
 public class App {
   final InputFilter inputFilter;
   final BufferedReader fileReader;
@@ -29,10 +26,6 @@ public class App {
     inputFilter.uploadRoster();
   }
 
-  public String getMessage() {
-    return "Hello from the server for "+ MyName.getName();
-  }
-
   public static void main(String[] args) throws IOException {
     InputStream is = InputFilter.class.getResourceAsStream("/roster2.csv");
     BufferedReader fileReader = new BufferedReader(new InputStreamReader(is));
@@ -40,7 +33,10 @@ public class App {
     InputFilter inputFilter = new InputFilter(fileReader, inputReader, System.out);
     App app = new App(inputFilter, fileReader, inputReader, System.out);
     app.uploadRoaster();
-    
-    System.out.println(app.getMessage());
+
+    AccountManager acm = new AccountManager();
+    RegisterChecker rc = new RegisterChecker(acm);
+    LoginChecker lc = new LoginChecker(acm);
+    rc.tryAddAccount(null, null);    
   }
 }
