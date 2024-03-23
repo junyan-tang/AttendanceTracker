@@ -24,10 +24,10 @@ public class TrackUpdater {
       outputWriter.println(rosterView.displayRoster());
       String prompt = "Input the status for student: " + student.getName()+", P for present, A for absent, T for tardy, E for excused";
       outputWriter.println(prompt);
-      String status = inputReader.readLine();
+      String status = inputReader.readLine().toUpperCase();
       while(!status.equals("P") && !status.equals("A") && !status.equals("T") && !status.equals("E")){
         outputWriter.println("Invalid input, please input again");
-        status = inputReader.readLine();
+        status = inputReader.readLine().toUpperCase();
       }
       String excuse = "";
       if(status.equals("E")){
@@ -57,10 +57,10 @@ public class TrackUpdater {
 
       String prompt = "Input the status for student: " + student_name +", P for present, A for absent, T for tardy, E for excused";
       outputWriter.println(prompt);
-      String status = inputReader.readLine();
+      String status = inputReader.readLine().toUpperCase();
       while(!status.equals("P") && !status.equals("A") && !status.equals("T") && !status.equals("E")){
         outputWriter.println("Invalid input, please input again");
-        status = inputReader.readLine();
+        status = inputReader.readLine().toUpperCase();
       }
       String excuse = "";
       if(status.equals("E")){
