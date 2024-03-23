@@ -5,12 +5,12 @@ public class LoginChecker extends SecurityManager{
     public LoginChecker(AccountManager accountManager){
         this.accountManager = accountManager;
     }
-    public Boolean checkPassword(Login login) {
-        String currentUser = login.getUser();
+    public Boolean checkPassword(String currentUser, String password) {
+        //String currentUser = login.getUser();
         if(!checkUserExist(currentUser)){
             return false;
         }
-        String password = login.getPassword();
+        //String password = login.getPassword();
         String hashedpwd = hashPassword(password);
         if(accountManager.getAccount(currentUser).getPassword().equals(hashedpwd)){
             return true;

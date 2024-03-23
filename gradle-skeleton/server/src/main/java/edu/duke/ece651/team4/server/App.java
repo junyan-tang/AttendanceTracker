@@ -9,6 +9,8 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.io.IOException;
 
+import edu.duke.ece651.team4.shared.MyName;
+
 public class App {
   final InputFilter inputFilter;
   final BufferedReader fileReader;
@@ -26,13 +28,55 @@ public class App {
     inputFilter.uploadRoster();
   }
 
+  public String getMessage() {
+    return "Hello from the server for " + MyName.getName();
+  }
+
   public static void main(String[] args) throws IOException {
+    // 注册账号
+    BufferedReader consoleReader = new BufferedReader(new InputStreamReader(System.in));
+
+    System.out.println("Please create your account.\n");
+    System.out.print("What's your netid?");
+    String registerUsername = consoleReader.readLine();
+
+    System.out.print("What's your password");
+    String registerPassword = consoleReader.readLine();
+
+    // 假设User是一个有两个字符串参数的构造函数的类：用户名和密码
+    AccountManager acm = new AccountManager();
+    RegisterChecker rc = new RegisterChecker(acm);
+
+    rc.tryAddAccount(registerUsername, registerPassword);
+
     InputStream is = InputFilter.class.getResourceAsStream("/roster2.csv");
     BufferedReader fileReader = new BufferedReader(new InputStreamReader(is));
-    BufferedReader inputReader = new BufferedReader(new InputStreamReader(System.in));
-    InputFilter inputFilter = new InputFilter(fileReader, inputReader, System.out);
-    App app = new App(inputFilter, fileReader, inputReader, System.out);
+    // BufferedReader inputReader = new BufferedReader(new
+    // InputStreamReader(System.in));
+    InputFilter inputFilter = new InputFilter(fileReader, consoleReader, System.out);
+    App app = new App(inputFilter, fileReader, consoleReader, System.out);
     app.uploadRoaster();
 
+    // log in
+    boolean loginSuccess = false;
+    while (!loginSuccess) {
+      LoginChecker lc = new LoginChecker(acm);
+      System.out.println("Please log in to your account");
+      System.out.print("What's your netid?");
+      String loginUsername = consoleReader.readLine();
+
+      System.out.print("What's your password?");
+      String loginPassword = consoleReader.readLine();
+      if(lc.checkPassword(loginUsername, loginPassword)){
+        loginSuccess = true;
+        System.out.println("login succeed.");
+      }
+      else{
+        System.out.println("Login failed, username or password is wrong. Please try again.");
+      }
+    }
+
+
+    System.out.println(app.getMessage());
   }
 }
