@@ -47,10 +47,14 @@ public class LectureTest {
     assertEquals(lecture.generateReport(), report);
     assertEquals(lecture.getName(), "CPS");
     assertEquals(lecture.getId(), 1);
-    assertEquals(lecture.getStudentList(), studentList);
+    assertEquals((ArrayList<User>)lecture.getStudentList(), studentList);
+    //lecture.getStudentList();
     Professor professor = new Professor("123", "Johnmh", ".com");
-    LinkedHashMap <String, User> professorMap = new LinkedHashMap<>();
-    professorMap.put("Johnmh", professor);
+    lecture.addProfessor(professor);
+    assertTrue(lecture.removeProfessor("Johnmh"));
+    assertFalse(lecture.removeProfessor("Tom"));
+    assertTrue(lecture.removeStudent("jerry"));
+    assertFalse(lecture.removeStudent("Tom"));
 
     // assertEquals(attendance.getCourseDateStr(),"2024-03-21");
   }

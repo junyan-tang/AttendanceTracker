@@ -3,6 +3,7 @@ package edu.duke.ece651.team4.server;
 import java.util.LinkedHashMap;
 // import java.time.Instant;
 import java.util.List;
+import java.util.ArrayList;
 
 
 public class Lecture implements Course {
@@ -77,8 +78,8 @@ public class Lecture implements Course {
   }
 
   public List<User> getStudentList() {
-    return (List<User>) studentMap.values();
-  }
+    return new ArrayList<User>(studentMap.values());
+}
 
   public void addStudent(User student) {
     studentMap.put(student.getName(), student);
