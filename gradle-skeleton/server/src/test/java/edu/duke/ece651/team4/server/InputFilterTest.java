@@ -15,9 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-
 
 public class InputFilterTest {
   String[] line1 = new String[] { "Name", "Email", "Phone Number" };
@@ -45,7 +43,6 @@ public class InputFilterTest {
     return ft;
   }
 
-  @Disabled
   @Test
   public void test_readCSVFile() throws IOException {
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
@@ -61,7 +58,6 @@ public class InputFilterTest {
     assertEquals(expectedRec, rec);
   }
 
-  @Disabled
   @Test
   public void test_getFirstLine() {
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
@@ -80,7 +76,6 @@ public class InputFilterTest {
     assertEquals(expected, fl2);
   }
 
-  @Disabled
   @Test
   public void test_readUserInput_EOFException() {
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
@@ -91,7 +86,6 @@ public class InputFilterTest {
     assertThrows(EOFException.class, () -> ft.readUserInput(prompt));
   }
 
-  @Disabled
   @Test
   public void test_readUserInput() throws IOException {
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
@@ -103,7 +97,6 @@ public class InputFilterTest {
     assertEquals("Y", userInput);
   }
 
-  @Disabled
   @Test
   public void test_checkHeaderExist() throws IOException {
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
@@ -123,7 +116,6 @@ public class InputFilterTest {
     assertFalse(ft4.checkHeaderExist(prompt));
   }
 
-  @Disabled
   @Test
   public void test_formatHeader() throws IOException {
     String[] formalArr = new String[] { "Name", "Email", "PhoneNumber" };
@@ -168,7 +160,6 @@ public class InputFilterTest {
     assertEquals(expected2, formatRec3);
   }
 
-  @Disabled
   @Test
   public void test_createStudentList() throws IOException {
     List<List<String>> unorderedRec = new ArrayList<>();
