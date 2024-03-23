@@ -40,4 +40,17 @@ public class Student implements User {
   public Boolean updateStatus(String message){
     return true;
   }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    if (obj == null || getClass() != obj.getClass()) {
+      return false;
+    }
+    Student other = (Student) obj;
+    return (phoneNum.equals(other.phoneNum) && legalName.equals(other.legalName) && 
+            displayName.equals(other.displayName) && email.equals(other.email));
+  }
 }
