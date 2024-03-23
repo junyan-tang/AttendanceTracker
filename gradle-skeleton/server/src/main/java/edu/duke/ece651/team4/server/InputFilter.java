@@ -44,7 +44,7 @@ public class InputFilter {
     return userIn;
   }
 
-  public boolean checkHeaderExist(String prompt, List<String> firstLine) throws IOException {
+  public boolean checkHeaderExist(String prompt) throws IOException {
     boolean validInput = false;
     boolean res = true;
     while (!validInput) {
@@ -65,16 +65,16 @@ public class InputFilter {
   }
   
   public List<List<String>> formatHeader(List<List<String>> studentRec) throws IOException {
-    List<String> firstLine = studentRec.get(0);
-    int colNum = firstLine.size();
+    int colNum = studentRec.get(0).size();
     String headerPrompt = "Does this CSV file has header? Enter Y for yes and N for no.";
-    boolean headerExist = checkHeaderExist(headerPrompt, firstLine);
+    boolean headerExist = checkHeaderExist(headerPrompt);
     if (!headerExist) {
       List<String> newHeader = new ArrayList<>(Collections.nCopies (colNum, null));
       studentRec.add(0, newHeader);
     }
+    List<String> firstLine = studentRec.get(0);
     List<String> data = studentRec.get(1);
-    String inputPrompt = "Choose which column ' " + data + " ' belongs to. Enter N for name, E for email and P for phone number.";
+    String inputPrompt = "Choose which column '" + data + "' belongs to. Enter N for name, E for email and P for phone number.";
     for (int i = 0; i < colNum; i++) {
       boolean validInput = false;
       while (!validInput) {

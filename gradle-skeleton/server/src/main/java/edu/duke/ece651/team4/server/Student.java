@@ -53,4 +53,8 @@ public class Student implements User {
     return (phoneNum.equals(other.phoneNum) && legalName.equals(other.legalName) && 
             displayName.equals(other.displayName) && email.equals(other.email));
   }
+  @Override
+  public String toString() {
+    return "Legal Name: " + legalName + ", Display Name: " + displayName + ", Email: " + email + ", Phone Number: " + phoneNum; 
+  }
 }
