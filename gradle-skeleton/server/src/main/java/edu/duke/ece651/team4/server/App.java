@@ -34,9 +34,5 @@ public class App {
     App app = new App(inputFilter, fileReader, inputReader, System.out);
     app.uploadRoaster();
 
-    AccountManager acm = new AccountManager();
-    RegisterChecker rc = new RegisterChecker(acm);
-    LoginChecker lc = new LoginChecker(acm);
-    rc.tryAddAccount(null, null);    
   }
 }
