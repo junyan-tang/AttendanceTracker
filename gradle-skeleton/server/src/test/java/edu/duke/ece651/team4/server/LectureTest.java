@@ -26,7 +26,7 @@ public class LectureTest {
     studentMap.put("Jack", jack);
 
 
-    Lecture lecture = new Lecture(1, "CPS", studentMap, null, new LinkedHashMap<String, Attendance>(), null);
+    Lecture lecture = new Lecture(1, "CPS", studentMap, new LinkedHashMap<String, User>(), new LinkedHashMap<String, Attendance>(), null);
     Attendance attendance = new Attendance(1, "CPS", studentList);
 
     lecture.addAttendance(attendance);
@@ -36,7 +36,7 @@ public class LectureTest {
     lecture.notifySingle(null, jack);
     String report = "Course: CPS\n" +
                     "Course ID: 1\n"+
-                    "Date: 2024-03-21\n" +
+                    "Date: "+attendance.getCourseDateStr()+"\n" +
                     "John DEFAULT\n" +
                     "Jane DEFAULT\n" +
                     "jerry DEFAULT\n"+
@@ -45,6 +45,13 @@ public class LectureTest {
                     "Tardy: 0\n" +
                     "Excused: 0\n";
     assertEquals(lecture.generateReport(), report);
+    assertEquals(lecture.getName(), "CPS");
+    assertEquals(lecture.getId(), 1);
+    assertEquals(lecture.getStudentList(), studentList);
+    Professor professor = new Professor("123", "Johnmh", ".com");
+    LinkedHashMap <String, User> professorMap = new LinkedHashMap<>();
+    professorMap.put("Johnmh", professor);
+
     // assertEquals(attendance.getCourseDateStr(),"2024-03-21");
   }
 
