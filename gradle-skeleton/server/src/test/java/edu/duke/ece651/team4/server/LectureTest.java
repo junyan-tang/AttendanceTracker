@@ -55,6 +55,14 @@ public class LectureTest {
     assertFalse(lecture.removeProfessor("Tom"));
     assertTrue(lecture.removeStudent("jerry"));
     assertFalse(lecture.removeStudent("Tom"));
+    assertTrue(lecture.hasAttendance(attendance.getCourseDateStr()));
+    assertFalse(lecture.hasAttendance("2024-03-21"));
+    assertTrue(lecture.modifyCertainAttendance(attendance.getCourseDateStr(), "John", AttendanceStatus.PRESENT, ""));
+    assertFalse(lecture.modifyCertainAttendance("2024-03-21", "John", AttendanceStatus.PRESENT, ""));
+    assertFalse(lecture.modifyCertainAttendance(attendance.getCourseDateStr(), "Tom", AttendanceStatus.EXCUSED, ""));
+    assertEquals(lecture.getAttendance(attendance.getCourseDateStr()), attendance);
+    assertTrue(lecture.removeAttendance(attendance.getCourseDateStr()));
+    assertFalse(lecture.removeAttendance("2024-03-21"));
 
     // assertEquals(attendance.getCourseDateStr(),"2024-03-21");
   }
