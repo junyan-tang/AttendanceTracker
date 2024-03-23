@@ -14,7 +14,7 @@ public class RegisterChecker extends SecurityManager{
     }
 
     public Boolean tryAddAccount(String netid, String password) {
-        if (checkUserExist(netid)) {
+        if (checkUserExist(netid) == false) {
             return false;
         }
         String hashedPwd = hashPassword(password);
