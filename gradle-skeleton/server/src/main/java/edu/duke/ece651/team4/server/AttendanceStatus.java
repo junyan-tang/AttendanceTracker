@@ -7,7 +7,7 @@ public enum AttendanceStatus {
   EXCUSED("E"), 
   DEFAULT("D");
 
-  private final String shortCode;
+    private final String shortCode;
 
     private AttendanceStatus(String shortCode) {
         this.shortCode = shortCode;

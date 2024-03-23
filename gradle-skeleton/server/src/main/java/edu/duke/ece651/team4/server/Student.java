@@ -13,6 +13,13 @@ public class Student implements User {
     this.email = email;
   }
 
+  public Student(String phoneNum, String legalName, String email) {
+    this.phoneNum = phoneNum;
+    this.legalName = legalName;
+    this.displayName = legalName;
+    this.email = email;
+  }
+
   public String getName() {
     return displayName;
   }
@@ -32,5 +39,22 @@ public class Student implements User {
 
   public Boolean updateStatus(String message){
     return true;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    if (obj == null || getClass() != obj.getClass()) {
+      return false;
+    }
+    Student other = (Student) obj;
+    return (phoneNum.equals(other.phoneNum) && legalName.equals(other.legalName) && 
+            displayName.equals(other.displayName) && email.equals(other.email));
+  }
+  @Override
+  public String toString() {
+    return "Legal Name: " + legalName + ", Display Name: " + displayName + ", Email: " + email + ", Phone Number: " + phoneNum; 
   }
 }
