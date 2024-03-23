@@ -17,6 +17,10 @@ application {
     //mainClassName = 'GmailQuickstart'
 }
 
+run{
+    standardInput = System.in
+}
+
 // sourceCompatibility = 11
 // targetCompatibility = 11
 // version = '1.0'

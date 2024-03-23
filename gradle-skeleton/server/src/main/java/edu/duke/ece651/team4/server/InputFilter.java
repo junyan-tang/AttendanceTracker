@@ -10,10 +10,12 @@ import java.util.Arrays;
 import java.util.Collections;
 
 public class InputFilter {
+  private final BufferedReader fileReader;
   private final BufferedReader inputReader;
   private final PrintStream out;
 
-  public InputFilter(BufferedReader inputReader, PrintStream out) {
+  public InputFilter(BufferedReader fileReader, BufferedReader inputReader, PrintStream out) {
+    this.fileReader = fileReader;
     this.inputReader = inputReader;
     this.out = out;
   }
@@ -21,7 +23,7 @@ public class InputFilter {
   public List<List<String>> readCSVFile() throws IOException {
     List<List<String>> studentRec = new ArrayList<>();
     String line = "";
-    while ((line = inputReader.readLine()) != null) {
+    while ((line = fileReader.readLine()) != null) {
       String[] elements = line.split(",");
       studentRec.add(Arrays.asList(elements));
     }
@@ -44,7 +46,7 @@ public class InputFilter {
     return userIn;
   }
 
-  public boolean checkHeaderExist(String prompt, List<String> firstLine) throws IOException {
+  public boolean checkHeaderExist(String prompt) throws IOException {
     boolean validInput = false;
     boolean res = true;
     while (!validInput) {
@@ -65,17 +67,17 @@ public class InputFilter {
   }
   
   public List<List<String>> formatHeader(List<List<String>> studentRec) throws IOException {
-    List<String> firstLine = studentRec.get(0);
-    int colNum = firstLine.size();
+    int colNum = studentRec.get(0).size();
     String headerPrompt = "Does this CSV file has header? Enter Y for yes and N for no.";
-    boolean headerExist = checkHeaderExist(headerPrompt, firstLine);
+    boolean headerExist = checkHeaderExist(headerPrompt);
     if (!headerExist) {
       List<String> newHeader = new ArrayList<>(Collections.nCopies (colNum, null));
       studentRec.add(0, newHeader);
     }
+    List<String> firstLine = studentRec.get(0);
     List<String> data = studentRec.get(1);
-    String inputPrompt = "Choose which column ' " + data + " ' belongs to. Enter N for name, E for email and P for phone number.";
     for (int i = 0; i < colNum; i++) {
+      String inputPrompt = "Choose which column '" + data.get(i) + "' belongs to. Enter N for name, E for email and P for phone number.";
       boolean validInput = false;
       while (!validInput) {
         String s = readUserInput(inputPrompt);
@@ -119,6 +121,13 @@ public class InputFilter {
       User stu = new Student(rec.get(colOrder[0]),rec.get(colOrder[1]), rec.get(colOrder[2]));
       studentList.add(stu);
     }
+    return studentList;
+  }
+
+  public List<User> uploadRoster() throws IOException {
+    List<List<String>> csvRec = readCSVFile();
+    List<List<String>> formatRec = formatHeader(csvRec);
+    List<User> studentList = createStudentList(formatRec);
     return studentList;
   }
 }

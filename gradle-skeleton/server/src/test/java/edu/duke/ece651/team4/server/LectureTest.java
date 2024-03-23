@@ -26,7 +26,7 @@ public class LectureTest {
     studentMap.put("Jack", jack);
 
 
-    Lecture lecture = new Lecture(1, "CPS", studentMap, null, new LinkedHashMap<String, Attendance>(), null);
+    Lecture lecture = new Lecture(1, "CPS", studentMap, new LinkedHashMap<String, User>(), new LinkedHashMap<String, Attendance>(), null);
     Attendance attendance = new Attendance(1, "CPS", studentList);
 
     lecture.addAttendance(attendance);
@@ -36,7 +36,7 @@ public class LectureTest {
     lecture.notifySingle(null, jack);
     String report = "Course: CPS\n" +
                     "Course ID: 1\n"+
-                    "Date: 2024-03-21\n" +
+                    "Date: "+attendance.getCourseDateStr()+"\n" +
                     "John DEFAULT\n" +
                     "Jane DEFAULT\n" +
                     "jerry DEFAULT\n"+
@@ -45,6 +45,25 @@ public class LectureTest {
                     "Tardy: 0\n" +
                     "Excused: 0\n";
     assertEquals(lecture.generateReport(), report);
+    assertEquals(lecture.getName(), "CPS");
+    assertEquals(lecture.getId(), 1);
+    assertEquals((ArrayList<User>)lecture.getStudentList(), studentList);
+    //lecture.getStudentList();
+    Professor professor = new Professor("123", "Johnmh", ".com");
+    lecture.addProfessor(professor);
+    assertTrue(lecture.removeProfessor("Johnmh"));
+    assertFalse(lecture.removeProfessor("Tom"));
+    assertTrue(lecture.removeStudent("jerry"));
+    assertFalse(lecture.removeStudent("Tom"));
+    assertTrue(lecture.hasAttendance(attendance.getCourseDateStr()));
+    assertFalse(lecture.hasAttendance("2024-03-21"));
+    assertTrue(lecture.modifyCertainAttendance(attendance.getCourseDateStr(), "John", AttendanceStatus.PRESENT, ""));
+    assertFalse(lecture.modifyCertainAttendance("2024-03-21", "John", AttendanceStatus.PRESENT, ""));
+    assertFalse(lecture.modifyCertainAttendance(attendance.getCourseDateStr(), "Tom", AttendanceStatus.EXCUSED, ""));
+    assertEquals(lecture.getAttendance(attendance.getCourseDateStr()), attendance);
+    assertTrue(lecture.removeAttendance(attendance.getCourseDateStr()));
+    assertFalse(lecture.removeAttendance("2024-03-21"));
+
     // assertEquals(attendance.getCourseDateStr(),"2024-03-21");
   }
 

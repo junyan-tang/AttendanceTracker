@@ -19,11 +19,11 @@ public class RosterViewTest {
         Attendance test = new Attendance(551, "C++ Programming", students);
         RosterView testView = new RosterView(test);
         String ans1 = testView.makeHeader();
-        String expected1 = "     551:C++ Programming     2024-03-22\n";
+        String expected1 = "     551:C++ Programming     "+test.getCourseDateStr()+"\n";
         assertEquals(expected1, ans1);
 
         String ans2 = testView.displayRoster();
-        String expected2 = "     551:C++ Programming     2024-03-22\n" 
+        String expected2 = "     551:C++ Programming     "+test.getCourseDateStr()+"\n" 
                           +"Brian     DEFAULT\nAfsaneh     DEFAULT\n";
         assertEquals(expected2, ans2);
     }

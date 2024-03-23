@@ -3,8 +3,44 @@
  */
 package edu.duke.ece651.team4.server;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.PrintStream;
+import java.io.IOException;
+
+import edu.duke.ece651.team4.shared.MyName;
+
+
 public class App {
-  public static void main(String[] args) {
-    App a = new App();
+  final InputFilter inputFilter;
+  final BufferedReader fileReader;
+  final BufferedReader inputReader;
+  final PrintStream out;
+
+  public App(InputFilter inputFilter, BufferedReader fileReader, BufferedReader inputReader, PrintStream out) {
+    this.inputFilter = inputFilter;
+    this.fileReader = fileReader;
+    this.inputReader = inputReader;
+    this.out = out;
+  }
+
+  public void uploadRoaster() throws IOException {
+    inputFilter.uploadRoster();
+  }
+
+  public String getMessage() {
+    return "Hello from the server for "+ MyName.getName();
+  }
+
+  public static void main(String[] args) throws IOException {
+    InputStream is = InputFilter.class.getResourceAsStream("/roster2.csv");
+    BufferedReader fileReader = new BufferedReader(new InputStreamReader(is));
+    BufferedReader inputReader = new BufferedReader(new InputStreamReader(System.in));
+    InputFilter inputFilter = new InputFilter(fileReader, inputReader, System.out);
+    App app = new App(inputFilter, fileReader, inputReader, System.out);
+    app.uploadRoaster();
+    
+    System.out.println(app.getMessage());
   }
 }
