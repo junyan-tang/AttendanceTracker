@@ -76,8 +76,8 @@ public class InputFilter {
     }
     List<String> firstLine = studentRec.get(0);
     List<String> data = studentRec.get(1);
-    String inputPrompt = "Choose which column '" + data + "' belongs to. Enter N for name, E for email and P for phone number.";
     for (int i = 0; i < colNum; i++) {
+      String inputPrompt = "Choose which column '" + data.get(i) + "' belongs to. Enter N for name, E for email and P for phone number.";
       boolean validInput = false;
       while (!validInput) {
         String s = readUserInput(inputPrompt);
@@ -128,7 +128,6 @@ public class InputFilter {
     List<List<String>> csvRec = readCSVFile();
     List<List<String>> formatRec = formatHeader(csvRec);
     List<User> studentList = createStudentList(formatRec);
-    System.out.println(studentList);
     return studentList;
   }
 }
