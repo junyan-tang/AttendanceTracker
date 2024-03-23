@@ -67,6 +67,12 @@ project (':server'){
     run{
         standardInput = System.in
     }
+    clover {
+        report{
+            xml=true
+            html=true
+        }
+    }
 }
 project (':client'){
     dependencies {
@@ -74,12 +80,12 @@ project (':client'){
 //        testImplementation project(path: ':shared', configuration: "testPkg")
     }
 }
-clover {
-    report{
-        xml=true
-        html=true
-    }
-}
+// clover {
+//     report{
+//         xml=true
+//         html=true
+//     }
+// }
 
 tasks.register("run-server") {
     dependsOn project('server').getTasksByName('run',false)
