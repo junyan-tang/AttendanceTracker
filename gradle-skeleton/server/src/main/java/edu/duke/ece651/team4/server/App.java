@@ -3,15 +3,8 @@
  */
 package edu.duke.ece651.team4.server;
 
-import edu.duke.ece651.team4.shared.MyName;
-
-
 public class App {
-  public String getMessage() {
-    return "Hello from the server for "+ MyName.getName();
-  }
   public static void main(String[] args) {
     App a = new App();
-    System.out.println(a.getMessage());
   }
 }
