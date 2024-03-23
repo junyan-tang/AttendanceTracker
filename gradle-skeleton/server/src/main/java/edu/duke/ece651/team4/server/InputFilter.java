@@ -10,10 +10,12 @@ import java.util.Arrays;
 import java.util.Collections;
 
 public class InputFilter {
+  private final BufferedReader fileReader;
   private final BufferedReader inputReader;
   private final PrintStream out;
 
-  public InputFilter(BufferedReader inputReader, PrintStream out) {
+  public InputFilter(BufferedReader fileReader, BufferedReader inputReader, PrintStream out) {
+    this.fileReader = fileReader;
     this.inputReader = inputReader;
     this.out = out;
   }
@@ -21,7 +23,7 @@ public class InputFilter {
   public List<List<String>> readCSVFile() throws IOException {
     List<List<String>> studentRec = new ArrayList<>();
     String line = "";
-    while ((line = inputReader.readLine()) != null) {
+    while ((line = fileReader.readLine()) != null) {
       String[] elements = line.split(",");
       studentRec.add(Arrays.asList(elements));
     }
@@ -119,6 +121,14 @@ public class InputFilter {
       User stu = new Student(rec.get(colOrder[0]),rec.get(colOrder[1]), rec.get(colOrder[2]));
       studentList.add(stu);
     }
+    return studentList;
+  }
+
+  public List<User> uploadRoster() throws IOException {
+    List<List<String>> csvRec = readCSVFile();
+    List<List<String>> formatRec = formatHeader(csvRec);
+    List<User> studentList = createStudentList(formatRec);
+    System.out.println(studentList);
     return studentList;
   }
 }
