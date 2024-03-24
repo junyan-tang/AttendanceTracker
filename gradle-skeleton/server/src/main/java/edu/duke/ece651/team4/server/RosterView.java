@@ -16,7 +16,7 @@ public class RosterView {
             view.append(student.getName());
             view.append("     ");
             String displayStatus = toDisplay.getAttendanceStatus(student).toString();
-            if(displayStatus == null) {
+            if(displayStatus == "DEFAULT") {
                 view.append("     ");
             }
             else {

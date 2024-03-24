@@ -108,4 +108,13 @@ public class Attendance {
       this.excuse.put(user, excuse);
     }
   }
+
+  public Boolean hasStudent(String studentName) {
+    for (User student : attendanceRecord.keySet()) {
+      if (student.getName().equals(studentName)) {
+        return true;
+      }
+    }
+    return false;
+  }
 }

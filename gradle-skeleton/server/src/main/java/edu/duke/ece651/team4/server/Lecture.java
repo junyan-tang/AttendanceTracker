@@ -79,7 +79,11 @@ public class Lecture implements Course {
 
   public List<User> getStudentList() {
     return new ArrayList<User>(studentMap.values());
-}
+  }
+
+  public List<String> getAttendaceDateList() {
+    return new ArrayList<String>(attendanceMap.keySet());
+  }
 
   public void addStudent(User student) {
     studentMap.put(student.getName(), student);
@@ -91,6 +95,13 @@ public class Lecture implements Course {
     }
     studentMap.remove(studentName);
     return true;
+  }
+
+  public Boolean hasStudent(String date, String studentName) {
+    if (!attendanceMap.containsKey(date)) {
+      return false;
+    }
+    return attendanceMap.get(date).hasStudent(studentName);
   }
 
   public void addProfessor(User professor) {
