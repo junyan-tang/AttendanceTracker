@@ -30,7 +30,7 @@ public class RosterViewTest {
         test.recordAttendance(s2, PRESENT, "");
         String ans3 = testView.displayRoster();
         String expected3 = "     551:C++ Programming     "+test.getCourseDateStr()+"\n" 
-                          +"Brian          \nAfsaneh     PRESENT     \n";
+                          +"Brian          \nAfsaneh     PRESENT\n";
         assertEquals(ans3, expected3);
     }
     

@@ -70,6 +70,7 @@ public class Lecture implements Course {
       user.updateStatus(message, this.messageSender);
     }catch(Exception e){
       System.out.println("Failed to send message to " + user.getName());
+      System.out.println(e);
     }
   }
 
