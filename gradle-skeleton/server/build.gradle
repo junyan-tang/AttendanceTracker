@@ -21,6 +21,10 @@ run{
     standardInput = System.in
 }
 
+dependencies {
+  implementation 'com.google.code.gson:gson:2.10.1'
+}
+
 // sourceCompatibility = 11
 // targetCompatibility = 11
 // version = '1.0'

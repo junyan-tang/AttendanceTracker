@@ -48,9 +48,9 @@ public class GMailer {
             throws IOException {
         
         InputStream in = GMailer.class.getResourceAsStream("/client_secret_947476509952-pflsgguc1fdvp0rtefjm0pkci1ajlud0.apps.googleusercontent.com.json");
-        if (in == null) {
-        throw new FileNotFoundException("Resource not found: ");
-        }
+        // if (in == null) {
+        // throw new FileNotFoundException("Resource not found: ");
+        // }
         GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JsonFactory,
                 new InputStreamReader(in));
 

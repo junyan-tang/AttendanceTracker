@@ -19,12 +19,14 @@ public class App {
   final BufferedReader fileReader;
   final BufferedReader inputReader;
   final PrintStream out;
+  final WeekReport weekReport;
 
   public App(InputFilter inputFilter, BufferedReader fileReader, BufferedReader inputReader, PrintStream out) {
     this.inputFilter = inputFilter;
     this.fileReader = fileReader;
     this.inputReader = inputReader;
     this.out = out;
+    this.weekReport = new WeekReport();
   }
 
   public List<User> uploadRoaster() throws IOException {
@@ -80,8 +82,15 @@ public class App {
 
     int courseId = 1;
     String courseName = "test";
+
+    try{
+
     Lecture new_lecture = new Lecture(courseId, courseName, new LinkedHashMap<String, User>(),
-        new LinkedHashMap<String, User>(), new LinkedHashMap<String, Attendance>(), null);
+        new LinkedHashMap<String, User>(), new LinkedHashMap<String, Attendance>(), new EmailSender());
+
+    app.weekReport.addTask(new_lecture);
+
+    
     for (User stu : student_list) {
       new_lecture.addStudent(stu);
     }
@@ -91,7 +100,9 @@ public class App {
       System.out.println("Hello professor! What do you want to do?");
       System.out.println("1. Start a new course");
       System.out.println("2. Modify student attendance status");
-      System.out.println("3. Logout");
+      System.out.println("3. Drop Student from Course");
+      System.out.println("4. Logout");
+
 
       // Reading professor's choice
       System.out.print("Please enter your choice (1, 2, or 3): ");
@@ -110,10 +121,15 @@ public class App {
           updater.changeCertainRecord(new_lecture);
           break;
         case "3":
+          System.out.println("You have chosen to drop student from course.");
+          updater.dropStudent(new_lecture);
+          break;
+        case "4":
           // Logout action
           System.out.println("Logging out...");
           finishAction = true; // Exit the loop to logout
           break;
+
         default:
           System.out.println("Invalid input, please enter 1 or 2.");
           continue;
@@ -122,5 +138,9 @@ public class App {
     
 
     System.out.println(app.getMessage());
+
+    }catch(Exception e){
+      System.out.println(e);
+    }
   }
 }

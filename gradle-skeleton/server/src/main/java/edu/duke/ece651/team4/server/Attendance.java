@@ -24,6 +24,7 @@ public class Attendance {
     this.courseId = courseId;
     this.courseName = courseName;
     this.courseDate = Instant.now();
+    this.excuse = new HashMap<>();
     this.attendanceRecord = new LinkedHashMap<>();
     this.excuse = new HashMap<>();
     for(User student : studentList) {
@@ -116,5 +117,14 @@ public class Attendance {
       }
     }
     return false;
+  }
+
+  public User getStudent(String studentName) {
+    for (User student : attendanceRecord.keySet()) {
+      if (student.getName().equals(studentName)) {
+        return student;
+      }
+    }
+    return null;
   }
 }

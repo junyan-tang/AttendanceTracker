@@ -28,8 +28,8 @@ public class Professor implements User {
     return true;
   }
 
-  public Boolean updateStatus(String message){
-    return true;
+  public Boolean updateStatus(String message, MessageSender messageSender) throws Exception{
+      return messageSender.sendMessage(this.email, message);
   }
 
 }

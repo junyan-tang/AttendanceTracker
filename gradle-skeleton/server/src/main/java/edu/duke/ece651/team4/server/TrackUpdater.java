@@ -36,6 +36,7 @@ public class TrackUpdater {
         excuse = inputReader.readLine();
       }
       new_attendance.recordAttendance(student, AttendanceStatus.fromShortCode(status.toUpperCase()), excuse);
+      lecture.notifySingle("Your attendance status for class "+lecture.getName()+" on "+new_attendance.getCourseDateStr()+" has been updated as "+AttendanceStatus.fromShortCode(status.toUpperCase()), student);
     }
     lecture.addAttendance(new_attendance);
   }
@@ -81,6 +82,7 @@ public class TrackUpdater {
 
       if(lecture.modifyCertainAttendance(courseDate.toString(), student_name, AttendanceStatus.fromShortCode(status.toUpperCase()), excuse)){
         outputWriter.println("Record changed successfully");
+        lecture.notifySingle("Your attendance status for class "+lecture.getName()+" on "+courseDate.toString()+" has been updated as "+AttendanceStatus.fromShortCode(status.toUpperCase()), lecture.getAttendance(courseDate.toString()).getStudent(student_name));
         return;
       }else{
         outputWriter.println("Record not found, please input again");
@@ -94,6 +96,22 @@ public class TrackUpdater {
     }
 
   }
+
+  public Boolean dropStudent(Lecture lecture) throws IOException{
+    String prompt_name = "Input the name of the student you want to drop from following:";
+    lecture.getStudentList().forEach((student) -> outputWriter.println(student.getName()));
+    outputWriter.println(prompt_name);
+    String student_name = inputReader.readLine();
+
+    if(lecture.removeStudent(student_name)){
+      outputWriter.println("Student dropped successfully");
+      return true;
+    }else{
+      outputWriter.println("Student not found, please input again");
+      return false;
+    }
+  }
+
 
 
   // public String getReport(){

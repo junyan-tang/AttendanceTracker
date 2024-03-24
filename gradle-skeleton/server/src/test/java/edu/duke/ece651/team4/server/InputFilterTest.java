@@ -20,7 +20,7 @@ import org.junit.jupiter.api.Test;
 
 public class InputFilterTest {
   String[] line1 = new String[] { "Name", "Email", "Phone Number" };
-  String[] line2 = new String[] { "Mary Sue", "ms123@duke.edu", "9197328384" };
+  String[] line2 = new String[] { "Mary Sue", "jycforwork4@gmail.com", "9197328384" };
   String[] line3 = new String[] { "Taylor Brown", "tb67@duke.edu", "9198264409" };
   String[] line4 = new String[] { "Hao Zhang", "hz506@duke.edu", "9192283827" };
   String[] line5 = new String[] { "name", "email", "mobile" };
