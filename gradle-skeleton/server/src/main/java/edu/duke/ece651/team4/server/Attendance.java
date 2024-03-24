@@ -24,6 +24,7 @@ public class Attendance {
     this.courseId = courseId;
     this.courseName = courseName;
     this.courseDate = Instant.now();
+    this.excuse = new HashMap<>();
     this.attendanceRecord = new LinkedHashMap<>();
     this.excuse = new HashMap<>();
     for(User student : studentList) {
