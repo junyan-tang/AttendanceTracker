@@ -8,9 +8,17 @@ public class EmailSender implements MessageSender{
     private GMailer gmailsender;
     private static final String subject = "test Mail";
     
+    public EmailSender() throws Exception{
+        this.gmailsender = new GMailer();
+    }
+
     public String generateMessage() {
         return null;
     }
+
+    // public void setGmailer(GMailer gmailer){
+    //     this.gmailsender = gmailer;
+    // }
 
     public boolean sendMessage(String destination, String message)throws Exception {
         if (!isValidEmail(destination)) {
