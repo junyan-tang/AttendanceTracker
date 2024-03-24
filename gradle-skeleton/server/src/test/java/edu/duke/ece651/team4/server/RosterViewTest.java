@@ -24,8 +24,14 @@ public class RosterViewTest {
 
         String ans2 = testView.displayRoster();
         String expected2 = "     551:C++ Programming     "+test.getCourseDateStr()+"\n" 
-                          +"Brian     DEFAULT\nAfsaneh     DEFAULT\n";
+                          +"Brian          \nAfsaneh          \n";
         assertEquals(expected2, ans2);
+        AttendanceStatus PRESENT = AttendanceStatus.PRESENT;
+        test.recordAttendance(s2, PRESENT, "");
+        String ans3 = testView.displayRoster();
+        String expected3 = "     551:C++ Programming     "+test.getCourseDateStr()+"\n" 
+                          +"Brian          \nAfsaneh     PRESENT     \n";
+        assertEquals(ans3, expected3);
     }
     
 }
