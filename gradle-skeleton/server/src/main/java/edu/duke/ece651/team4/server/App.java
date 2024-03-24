@@ -19,12 +19,14 @@ public class App {
   final BufferedReader fileReader;
   final BufferedReader inputReader;
   final PrintStream out;
+  final WeekReport weekReport;
 
   public App(InputFilter inputFilter, BufferedReader fileReader, BufferedReader inputReader, PrintStream out) {
     this.inputFilter = inputFilter;
     this.fileReader = fileReader;
     this.inputReader = inputReader;
     this.out = out;
+    this.weekReport = new WeekReport();
   }
 
   public List<User> uploadRoaster() throws IOException {
@@ -86,10 +88,11 @@ public class App {
     Lecture new_lecture = new Lecture(courseId, courseName, new LinkedHashMap<String, User>(),
         new LinkedHashMap<String, User>(), new LinkedHashMap<String, Attendance>(), new EmailSender());
 
+    app.weekReport.addTask(new_lecture);
+
     
     for (User stu : student_list) {
       new_lecture.addStudent(stu);
-
     }
 
     boolean finishAction = false;

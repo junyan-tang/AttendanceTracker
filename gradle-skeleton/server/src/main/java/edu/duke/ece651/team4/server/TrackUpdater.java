@@ -97,6 +97,10 @@ public class TrackUpdater {
 
   }
 
+  public void sendReport(Lecture lecture) throws IOException{
+    
+  }
+
 
   // public String getReport(){
     

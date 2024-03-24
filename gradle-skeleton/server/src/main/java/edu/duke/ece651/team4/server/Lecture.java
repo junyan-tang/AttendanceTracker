@@ -1,9 +1,15 @@
 package edu.duke.ece651.team4.server;
 
 import java.util.LinkedHashMap;
-// import java.time.Instant;
+import java.time.Instant;
+import java.time.Duration;
 import java.util.List;
 import java.util.ArrayList;
+
+// import java.util.Timer;
+// import java.util.TimerTask;
+// import java.util.Date;
+
 
 
 public class Lecture implements Course {
@@ -13,6 +19,8 @@ public class Lecture implements Course {
   private LinkedHashMap<String, User> professorMap;
   private LinkedHashMap<String, Attendance> attendanceMap;
   private MessageSender messageSender;
+  // private Timer timer;
+  // private TimerTask task;
   
 
 
@@ -37,6 +45,13 @@ public class Lecture implements Course {
     this.professorMap = professorMap;
     this.attendanceMap = attendanceMap;
     this.messageSender = messageSender;
+    // this.timer = new Timer();
+    // this.task = new TimerTask() {
+    //   @Override
+    //   public void run() {
+    //     professorMap.forEach((key, value) -> notifySingle(generateReport(), value));
+    //   }
+    // };
   }
 
   public Boolean modifyName(String oldName, String newName) {
@@ -77,6 +92,9 @@ public class Lecture implements Course {
   public String generateReport() {
     String report = "";
     for (Attendance attendance : attendanceMap.values()) {
+      if(Duration.between(attendance.getCourseDate(), Instant.now()).toDays() > 7){
+        continue;
+      }
       report += attendance.getReport();
     }
     return report;
@@ -84,6 +102,10 @@ public class Lecture implements Course {
 
   public List<User> getStudentList() {
     return new ArrayList<User>(studentMap.values());
+  }
+
+  public List<User> getProfessorList() {
+    return new ArrayList<User>(professorMap.values());
   }
 
   public List<String> getAttendaceDateList() {
