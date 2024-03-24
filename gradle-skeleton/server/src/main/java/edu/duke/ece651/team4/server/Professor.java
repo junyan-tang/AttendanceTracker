@@ -28,7 +28,7 @@ public class Professor implements User {
     return true;
   }
 
-  public Boolean updateStatus(String message){
+  public Boolean updateStatus(String message, MessageSender messageSender) throws Exception{
     return true;
   }
 
