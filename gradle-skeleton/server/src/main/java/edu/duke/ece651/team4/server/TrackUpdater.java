@@ -41,7 +41,8 @@ public class TrackUpdater {
 
 
   public void changeCertainRecord(Lecture lecture) throws IOException{
-    outputWriter.println("Please input the date of the class you want to change the record (format: yyyy-MM-dd)");
+    outputWriter.println("Please input the date of the class you want to change the record (format: yyyy-MM-dd), choose from the following:");
+    lecture.getAttendaceDateList().forEach((date) -> outputWriter.println(date));
     String date = inputReader.readLine();
     try{
       LocalDate courseDate = LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
@@ -49,11 +50,19 @@ public class TrackUpdater {
       if(!lecture.hasAttendance(courseDate.toString())){
         outputWriter.println("Record not found, please input again");
         changeCertainRecord(lecture);
+        return;
       }
 
-      String prompt_name = "Input the name of the student you want to change the record";
+      String prompt_name = "Input the name of the student you want to change the record from following:";
+      lecture.getAttendance(courseDate.toString()).getStudentList().forEach((student) -> outputWriter.println(student.getName()));
       outputWriter.println(prompt_name);
       String student_name = inputReader.readLine();
+
+      if(!lecture.hasStudent(courseDate.toString(), student_name)){
+        outputWriter.println("Student not found, please input again");
+        changeCertainRecord(lecture);
+        return;
+      }
 
       String prompt = "Input the status for student: " + student_name +", P for present, A for absent, T for tardy, E for excused";
       outputWriter.println(prompt);
@@ -70,9 +79,11 @@ public class TrackUpdater {
 
       if(lecture.modifyCertainAttendance(courseDate.toString(), student_name, AttendanceStatus.fromShortCode(status.toUpperCase()), excuse)){
         outputWriter.println("Record changed successfully");
+        return;
       }else{
         outputWriter.println("Record not found, please input again");
         changeCertainRecord(lecture);
+        return;
       }
 
     }catch(DateTimeParseException e){
