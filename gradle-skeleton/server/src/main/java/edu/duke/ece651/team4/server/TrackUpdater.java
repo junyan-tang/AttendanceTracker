@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.LinkedHashMap;
 
 public class TrackUpdater {
   final BufferedReader inputReader;
@@ -54,7 +55,8 @@ public class TrackUpdater {
       }
 
       String prompt_name = "Input the name of the student you want to change the record from following:";
-      lecture.getAttendance(courseDate.toString()).getStudentList().forEach((student) -> outputWriter.println(student.getName()));
+      LinkedHashMap<User, AttendanceStatus> a_map = lecture.getAttendance(courseDate.toString()).getAttendanceRecord();
+      a_map.forEach((student, status) -> outputWriter.println(student.getName()+": "+status));
       outputWriter.println(prompt_name);
       String student_name = inputReader.readLine();
 
@@ -92,4 +94,9 @@ public class TrackUpdater {
     }
 
   }
+
+
+  // public String getReport(){
+    
+  // }
 }
