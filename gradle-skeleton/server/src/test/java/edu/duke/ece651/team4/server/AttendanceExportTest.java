@@ -43,7 +43,7 @@ public class AttendanceExportTest {
     List<User> stuList = ft.createStudentList(stu);
     Attendance att = new Attendance(courseID, courseName, stuList);
     AttendanceExport atte = new AttendanceExport(att);
-
+    
     User student = new Student(phone, name, email);
     att.getExcuse().put(student, "sick");
     String js = atte.exportAttendanceToJson();
