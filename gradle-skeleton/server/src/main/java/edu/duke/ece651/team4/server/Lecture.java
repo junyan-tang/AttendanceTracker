@@ -104,6 +104,10 @@ public class Lecture implements Course {
     return new ArrayList<User>(studentMap.values());
   }
 
+  // public Boolean hasStudentInLecture(String studentName) {
+  //   return studentMap.containsKey(studentName);
+  // }
+
   public List<User> getProfessorList() {
     return new ArrayList<User>(professorMap.values());
   }

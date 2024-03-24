@@ -100,7 +100,9 @@ public class App {
       System.out.println("Hello professor! What do you want to do?");
       System.out.println("1. Start a new course");
       System.out.println("2. Modify student attendance status");
-      System.out.println("3. Logout");
+      System.out.println("3. Drop Student from Course");
+      System.out.println("4. Logout");
+
 
       // Reading professor's choice
       System.out.print("Please enter your choice (1, 2, or 3): ");
@@ -119,10 +121,14 @@ public class App {
           updater.changeCertainRecord(new_lecture);
           break;
         case "3":
+          System.out.println("You have chosen to drop student from course.");
+          updater.dropStudent(new_lecture);
+        case "4":
           // Logout action
           System.out.println("Logging out...");
           finishAction = true; // Exit the loop to logout
           break;
+
         default:
           System.out.println("Invalid input, please enter 1 or 2.");
           continue;

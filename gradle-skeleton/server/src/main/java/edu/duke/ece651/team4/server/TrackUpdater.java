@@ -97,9 +97,21 @@ public class TrackUpdater {
 
   }
 
-  public void sendReport(Lecture lecture) throws IOException{
-    
+  public Boolean dropStudent(Lecture lecture) throws IOException{
+    String prompt_name = "Input the name of the student you want to drop from following:";
+    lecture.getStudentList().forEach((student) -> outputWriter.println(student.getName()));
+    outputWriter.println(prompt_name);
+    String student_name = inputReader.readLine();
+
+    if(lecture.removeStudent(student_name)){
+      outputWriter.println("Student dropped successfully");
+      return true;
+    }else{
+      outputWriter.println("Student not found, please input again");
+      return false;
+    }
   }
+
 
 
   // public String getReport(){
