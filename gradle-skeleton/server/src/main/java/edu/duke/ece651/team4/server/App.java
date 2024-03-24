@@ -123,6 +123,7 @@ public class App {
         case "3":
           System.out.println("You have chosen to drop student from course.");
           updater.dropStudent(new_lecture);
+          break;
         case "4":
           // Logout action
           System.out.println("Logging out...");
