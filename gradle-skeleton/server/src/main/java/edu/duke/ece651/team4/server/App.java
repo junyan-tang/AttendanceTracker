@@ -101,11 +101,12 @@ public class App {
       System.out.println("1. Start a new course");
       System.out.println("2. Modify student attendance status");
       System.out.println("3. Drop Student from Course");
-      System.out.println("4. Logout");
+      System.out.println("4. Export attendance report");
+      System.out.println("5. Logout");
 
 
       // Reading professor's choice
-      System.out.print("Please enter your choice (1, 2, or 3): ");
+      System.out.print("Please enter your choice (1, 2, 3, 4 or 5): ");
       String choice = consoleReader.readLine();
       TrackUpdater updater = new TrackUpdater(consoleReader, System.out);
 
@@ -125,6 +126,11 @@ public class App {
           updater.dropStudent(new_lecture);
           break;
         case "4":
+          System.out.println("You have chosen to export an attendance report.");
+          
+          //to be done
+          break;
+        case "5":
           // Logout action
           System.out.println("Logging out...");
           finishAction = true; // Exit the loop to logout
@@ -137,10 +143,12 @@ public class App {
     }
     
 
-    System.out.println(app.getMessage());
+    //System.out.println(app.getMessage());
+    
 
     }catch(Exception e){
       System.out.println(e);
     }
+    System.exit(0);
   }
 }

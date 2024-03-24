@@ -14,7 +14,9 @@ public class RosterView {
         List<User> studentList = toDisplay.getStudentList();
         for(User student:studentList) {
             view.append(student.getName());
-            view.append("     ");
+            for(int i = 0; i < 15 - student.getName().length(); i++) {
+                view.append(" ");
+            }
             String displayStatus = toDisplay.getAttendanceStatus(student).toString();
             if(displayStatus == "DEFAULT") {
                 view.append("     ");
