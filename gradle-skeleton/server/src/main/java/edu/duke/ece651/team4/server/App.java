@@ -81,9 +81,10 @@ public class App {
     int courseId = 1;
     String courseName = "test";
     Lecture new_lecture = new Lecture(courseId, courseName, new LinkedHashMap<String, User>(),
-        new LinkedHashMap<String, User>(), new LinkedHashMap<String, Attendance>(), null);
+        new LinkedHashMap<String, User>(), new LinkedHashMap<String, Attendance>(), new EmailSender());
     for (User stu : student_list) {
       new_lecture.addStudent(stu);
+      
     }
 
     boolean finishAction = false;

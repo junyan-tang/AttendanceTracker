@@ -37,8 +37,9 @@ public class Student implements User {
     return true;
   }
 
-  public Boolean updateStatus(String message){
-    return true;
+  public Boolean updateStatus(String message, MessageSender messageSender) throws Exception{
+    // return true;
+    return messageSender.sendMessage(this.email, message);
   }
 
   @Override

@@ -117,4 +117,13 @@ public class Attendance {
     }
     return false;
   }
+
+  public User getStudent(String studentName) {
+    for (User student : attendanceRecord.keySet()) {
+      if (student.getName().equals(studentName)) {
+        return student;
+      }
+    }
+    return null;
+  }
 }

@@ -66,7 +66,11 @@ public class Lecture implements Course {
   }
 
   public void notifySingle(String message, User user) {
-    user.updateStatus(message);
+    try{
+      user.updateStatus(message, this.messageSender);
+    }catch(Exception e){
+      System.out.println("Failed to send message to " + user.getName());
+    }
   }
 
   public String generateReport() {
@@ -133,11 +137,11 @@ public class Lecture implements Course {
   }
 
   public Boolean modifyCertainAttendance(String date, String studentName, AttendanceStatus status,String excuse){
-    if ((!attendanceMap.containsKey(date)) || (!studentMap.containsKey(studentName))) {
+    if ((!attendanceMap.containsKey(date)) || (!attendanceMap.get(date).hasStudent(studentName))) {
       return false;
     }
     Attendance attendance = attendanceMap.get(date);
-    attendance.recordAttendance(studentMap.get(studentName), status, excuse);
+    attendance.recordAttendance(attendance.getStudent(studentName), status, excuse);
     return true;
   }
 
