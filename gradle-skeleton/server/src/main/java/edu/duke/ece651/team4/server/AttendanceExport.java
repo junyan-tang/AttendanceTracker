@@ -2,10 +2,14 @@ package edu.duke.ece651.team4.server;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.BufferedReader;
+import java.io.PrintStream;
 import java.io.IOException;
+import java.io.EOFException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.List;
 
 import com.google.gson.Gson;
 // import com.google.gson.GsonBuilder;
@@ -13,13 +17,29 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 public class AttendanceExport {
-  private final Attendance attend;
+  private final BufferedReader inputReader;
+  private final PrintStream out;
 
-  public AttendanceExport(Attendance attend) {
-    this.attend = attend;
-  } 
+  public AttendanceExport(BufferedReader consoleReader, PrintStream out) {
+    this.inputReader = consoleReader;
+    this.out = out;
+  }
 
-  public String exportAttendanceToJson() {
+  public Attendance getOneAttendance(Lecture lecture, String date) {
+    Attendance attend = lecture.getAttendance(date);
+    return attend;
+  }
+
+  public String readUserInput(String prompt) throws IOException {
+    out.print(prompt);
+    String userIn = inputReader.readLine();
+    if (userIn == null) {
+      throw new EOFException("No more input to read.");
+    }
+    return userIn;
+  }
+
+  public String exportAttendanceToJson(Attendance attend) {
     Gson gson = new Gson();
     JsonObject attendObj = new JsonObject();
     String recDate = attend.getCourseDateStr();
@@ -60,15 +80,36 @@ public class AttendanceExport {
     return res;
   }
 
-  public void writeJsonIntoFile(String jsonStr) throws IOException {
+  public void writeJsonIntoFile(String jsonStr, Attendance attend) throws IOException {
     String date = attend.getCourseDateStr();
     String f = "src/main/resources/attendance_" + date + ".txt";
     File attendanceRec = new File(f);
     attendanceRec.createNewFile();
-
     FileOutputStream fileOut = new FileOutputStream(attendanceRec, true);
     byte[] bytes = jsonStr.getBytes();
     fileOut.write(bytes);
     fileOut.close();
+  }
+
+  public void exportOneAttendance(Lecture lecture) throws IOException {
+    String prompt = "Please enter the date of the class you want to export attendance record (format: yyyy-MM-dd), choose from the following:\n";
+    List<String> attendDate = lecture.getAttendaceDateList();
+    for (int i = 0; i < attendDate.size(); i++) {
+      prompt = prompt + attendDate.get(i) + "\n";
+    }
+    boolean validInput = false;
+    String dateChosen = "";
+    while (!validInput) {
+      dateChosen = readUserInput(prompt);
+      for (String date : attendDate) {
+        if (dateChosen.equals(date)) {
+          validInput = true;
+        }
+      }
+    }
+    Attendance attendChosen = getOneAttendance(lecture, dateChosen);
+    String jsonStr = exportAttendanceToJson(attendChosen);
+    writeJsonIntoFile(jsonStr, attendChosen);
+    out.println("Attendance record exported to resources directory.");
   }
 }

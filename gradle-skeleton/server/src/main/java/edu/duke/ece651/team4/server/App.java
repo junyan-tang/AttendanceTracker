@@ -17,16 +17,18 @@ import edu.duke.ece651.team4.shared.MyName;
 public class App {
   final InputFilter inputFilter;
   final BufferedReader fileReader;
-  final BufferedReader inputReader;
+  final BufferedReader consoleReader;
   final PrintStream out;
   final WeekReport weekReport;
+  final AttendanceExport attendanceExp;
 
-  public App(InputFilter inputFilter, BufferedReader fileReader, BufferedReader inputReader, PrintStream out) {
+  public App(InputFilter inputFilter, BufferedReader fileReader, BufferedReader consoleReader, PrintStream out) {
     this.inputFilter = inputFilter;
     this.fileReader = fileReader;
-    this.inputReader = inputReader;
+    this.consoleReader = consoleReader;
     this.out = out;
     this.weekReport = new WeekReport();
+    this.attendanceExp = new AttendanceExport(consoleReader, out);
   }
 
   public List<User> uploadRoaster() throws IOException {
@@ -74,8 +76,6 @@ public class App {
 
     InputStream is = InputFilter.class.getResourceAsStream("/roster2.csv");
     BufferedReader fileReader = new BufferedReader(new InputStreamReader(is));
-    // BufferedReader inputReader = new BufferedReader(new
-    // InputStreamReader(System.in));
     InputFilter inputFilter = new InputFilter(fileReader, consoleReader, System.out);
     App app = new App(inputFilter, fileReader, consoleReader, System.out);
     ArrayList<User> student_list = new ArrayList<>(app.uploadRoaster());
@@ -101,7 +101,7 @@ public class App {
       System.out.println("1. Start a new course");
       System.out.println("2. Modify student attendance status");
       System.out.println("3. Drop Student from Course");
-      System.out.println("4. Export attendance report");
+      System.out.println("4. Export attendance record");
       System.out.println("5. Logout");
 
 
@@ -126,9 +126,9 @@ public class App {
           updater.dropStudent(new_lecture);
           break;
         case "4":
-          System.out.println("You have chosen to export an attendance report.");
-          
-          //to be done
+          // export attendance record to 'server/src/main/resources' directory
+          System.out.println("You have chosen to export an attendance record.");
+          app.attendanceExp.exportOneAttendance(new_lecture);
           break;
         case "5":
           // Logout action
