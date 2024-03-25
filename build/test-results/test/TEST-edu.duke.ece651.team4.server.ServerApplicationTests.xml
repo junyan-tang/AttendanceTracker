@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="edu.duke.ece651.team4.server.ServerApplicationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-03-25T17:23:20" hostname="vcm-37921.vm.duke.edu" time="0.68">
+  <properties/>
+  <testcase name="contextLoads()" classname="edu.duke.ece651.team4.server.ServerApplicationTests" time="0.68"/>
+  <system-out><![CDATA[13:23:19.383 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [edu.duke.ece651.team4.server.ServerApplicationTests]: ServerApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+13:23:19.450 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration edu.duke.ece651.team4.server.ServerApplication for test class edu.duke.ece651.team4.server.ServerApplicationTests
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.4)
+
+2024-03-25T13:23:19.743-04:00  INFO 38081 --- [server] [    Test worker] e.d.e.t.server.ServerApplicationTests    : Starting ServerApplicationTests using Java 17.0.10 with PID 38081 (started by jt418 in /home/jt418/AttendanceTracker)
+2024-03-25T13:23:19.745-04:00  INFO 38081 --- [server] [    Test worker] e.d.e.t.server.ServerApplicationTests    : No active profile set, falling back to 1 default profile: "default"
+2024-03-25T13:23:20.123-04:00  INFO 38081 --- [server] [    Test worker] e.d.e.t.server.ServerApplicationTests    : Started ServerApplicationTests in 0.566 seconds (process running for 1.408)
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
