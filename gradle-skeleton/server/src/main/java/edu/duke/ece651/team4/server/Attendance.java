@@ -1,11 +1,15 @@
 package edu.duke.ece651.team4.server;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.HashMap;
 
 // enum AttendanceStatus {
@@ -126,5 +130,37 @@ public class Attendance {
       }
     }
     return null;
+  }
+
+  public void autoExportAttendance() throws IOException {
+    ZonedDateTime zonedDateTime = courseDate.atZone(ZoneId.of("America/New_York"));
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    String date = zonedDateTime.format(formatter);
+    String f = "src/main/resources/attendance_" + date + ".csv";
+    File attendanceRec = new File(f);
+    attendanceRec.createNewFile();
+    FileOutputStream outputFile = new FileOutputStream(attendanceRec, true);
+    String id = "Course ID," + Integer.toString(courseId) + "\n";
+    String name = "Course Name," + courseName + "\n";
+    date = "Course Date," + date + "\n";
+    String header = "Name,Attendance\n";
+    byte[] bytes = id.getBytes();
+    outputFile.write(bytes);
+    bytes = name.getBytes();
+    outputFile.write(bytes);
+    bytes = date.getBytes();
+    outputFile.write(bytes);
+    bytes = header.getBytes();
+    outputFile.write(bytes);
+    for (Map.Entry<User, AttendanceStatus> entry : attendanceRecord.entrySet()) {
+      User stu = entry.getKey();
+      AttendanceStatus status = entry.getValue();
+      String stuName = stu.getName();
+      String stat = status.getShortCode();
+      String row = stuName + "," + stat + "\n";
+      bytes = row.getBytes();
+      outputFile.write(bytes);
+    }
+    outputFile.close();
   }
 }

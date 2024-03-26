@@ -39,6 +39,8 @@ public class TrackUpdater {
       lecture.notifySingle("Your attendance status for class "+lecture.getName()+" on "+new_attendance.getCourseDateStr()+" has been updated as "+AttendanceStatus.fromShortCode(status.toUpperCase()), student);
     }
     lecture.addAttendance(new_attendance);
+    new_attendance.autoExportAttendance();
+    outputWriter.println("Attendance record for this class saved successfully.");
   }
 
 

@@ -82,7 +82,7 @@ public class AttendanceExport {
 
   public void writeJsonIntoFile(String jsonStr, Attendance attend) throws IOException {
     String date = attend.getCourseDateStr();
-    String f = "src/main/resources/attendance_" + date + ".txt";
+    String f = "src/main/resources/attendance_" + date + "_json.txt";
     File attendanceRec = new File(f);
     attendanceRec.createNewFile();
     FileOutputStream fileOut = new FileOutputStream(attendanceRec, true);
