@@ -112,7 +112,21 @@ public class TrackUpdater {
     }
   }
 
-
+  public boolean enrollNewStudent(Lecture lecture) throws IOException {
+    String promptName = "Enter the name of the student you want to enroll into the course:";
+    String promptEmail = "Enter the email of the student you want to enroll into the course:";
+    String promptPhoneNum = "Enter the phone number of the student you want to enroll into the course:";
+    outputWriter.println(promptName);
+    String name = inputReader.readLine();
+    outputWriter.println(promptEmail);
+    String email = inputReader.readLine();
+    outputWriter.println(promptPhoneNum);
+    String phoneNum = inputReader.readLine();
+    User newEnroll = new Student(phoneNum, name, email);
+    lecture.addStudent(newEnroll);
+    outputWriter.println("The student enrolled in the course succesfully.");
+    return true;
+  }
 
   // public String getReport(){
     

@@ -78,6 +78,7 @@ public class App {
     BufferedReader fileReader = new BufferedReader(new InputStreamReader(is));
     InputFilter inputFilter = new InputFilter(fileReader, consoleReader, System.out);
     App app = new App(inputFilter, fileReader, consoleReader, System.out);
+    app.out.println("Your roster file is uploaded successfully.");
     ArrayList<User> student_list = new ArrayList<>(app.uploadRoaster());
 
     int courseId = 1;
@@ -100,13 +101,14 @@ public class App {
       System.out.println("Hello professor! What do you want to do?");
       System.out.println("1. Start a new course");
       System.out.println("2. Modify student attendance status");
-      System.out.println("3. Drop Student from Course");
-      System.out.println("4. Export attendance record");
-      System.out.println("5. Logout");
+      System.out.println("3. Enroll new student to the course");
+      System.out.println("4. Drop student from the course");
+      System.out.println("5. Export attendance record to json file");
+      System.out.println("6. Logout");
 
 
       // Reading professor's choice
-      System.out.print("Please enter your choice (1, 2, 3, 4 or 5): ");
+      System.out.print("Please enter your choice (1, 2, 3, 4, 5 or 6): ");
       String choice = consoleReader.readLine();
       TrackUpdater updater = new TrackUpdater(consoleReader, System.out);
 
@@ -122,15 +124,19 @@ public class App {
           updater.changeCertainRecord(new_lecture);
           break;
         case "3":
+          System.out.println("You have chosen to enroll student to course.");
+          updater.enrollNewStudent(new_lecture);
+          break;
+        case "4":
           System.out.println("You have chosen to drop student from course.");
           updater.dropStudent(new_lecture);
           break;
-        case "4":
+        case "5":
           // export attendance record to 'server/src/main/resources' directory
           System.out.println("You have chosen to export an attendance record.");
           app.attendanceExp.exportOneAttendance(new_lecture);
           break;
-        case "5":
+        case "6":
           // Logout action
           System.out.println("Logging out...");
           finishAction = true; // Exit the loop to logout
@@ -141,10 +147,8 @@ public class App {
           continue;
       }
     }
-    
 
-    //System.out.println(app.getMessage());
-    
+    // System.out.println(app.getMessage());
 
     }catch(Exception e){
       System.out.println(e);
