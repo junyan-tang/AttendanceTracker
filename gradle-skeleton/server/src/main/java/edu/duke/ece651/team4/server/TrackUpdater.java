@@ -39,6 +39,7 @@ public class TrackUpdater {
       lecture.notifySingle("Your attendance status for class "+lecture.getName()+" on "+new_attendance.getCourseDateStr()+" has been updated as "+AttendanceStatus.fromShortCode(status.toUpperCase()), student);
     }
     lecture.addAttendance(new_attendance);
+    // automatically export attendance record into a csv file
     new_attendance.autoExportAttendance();
     outputWriter.println("Attendance record for this class saved successfully.");
   }
@@ -84,6 +85,11 @@ public class TrackUpdater {
 
       if(lecture.modifyCertainAttendance(courseDate.toString(), student_name, AttendanceStatus.fromShortCode(status.toUpperCase()), excuse)){
         outputWriter.println("Record changed successfully");
+        // update attendance record file
+        Attendance curAttendance = lecture.getAttendance(courseDate.toString());
+        curAttendance.updateRecordFile();
+        outputWriter.println("Attendance record for this class updated successfully.");
+
         lecture.notifySingle("Your attendance status for class "+lecture.getName()+" on "+courseDate.toString()+" has been updated as "+AttendanceStatus.fromShortCode(status.toUpperCase()), lecture.getAttendance(courseDate.toString()).getStudent(student_name));
         return;
       }else{

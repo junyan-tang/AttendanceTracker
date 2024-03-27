@@ -117,7 +117,6 @@ public class App {
           // Here you add the logic for starting a new course
           System.out.println("You have chosen to start a new course.");          
           updater.haveClass(new_lecture);
-          // automatically export attendance record to 'server/src/main/resources' directory
           break;
         case "2":
           // Here you add the logic for modifying student attendance status

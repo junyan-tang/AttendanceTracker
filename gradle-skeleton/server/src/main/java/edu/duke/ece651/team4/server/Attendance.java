@@ -156,11 +156,22 @@ public class Attendance {
       User stu = entry.getKey();
       AttendanceStatus status = entry.getValue();
       String stuName = stu.getName();
-      String stat = status.getShortCode();
-      String row = stuName + "," + stat + "\n";
+      String row = stuName + "," + status + "\n";
       bytes = row.getBytes();
       outputFile.write(bytes);
     }
     outputFile.close();
+  }
+
+  public void updateRecordFile() throws IOException {
+    ZonedDateTime zonedDateTime = courseDate.atZone(ZoneId.of("America/New_York"));
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    String date = zonedDateTime.format(formatter);
+    String path = "src/main/resources/attendance_" + date + ".csv";
+    File attendanceRec = new File(path);
+    if (attendanceRec.exists()) {
+      attendanceRec.delete();
+      autoExportAttendance();
+    }
   }
 }

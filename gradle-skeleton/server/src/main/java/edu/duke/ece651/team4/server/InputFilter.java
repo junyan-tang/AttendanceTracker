@@ -50,12 +50,12 @@ public class InputFilter {
     boolean validInput = false;
     boolean res = true;
     while (!validInput) {
-      String s = readUserInput(prompt);
-      if (s.equals("Y") || s.equals("y")) {
+      String s = readUserInput(prompt).toUpperCase();
+      if (s.equals("Y")) {
         validInput = true;
         res = true;
       }
-      else if (s.equals("N") || s.equals("n")) {
+      else if (s.equals("N")) {
         validInput = true;
         res = false;
       }
@@ -80,16 +80,16 @@ public class InputFilter {
       String inputPrompt = "Choose which column '" + data.get(i) + "' belongs to. Enter N for name, E for email and P for phone number.";
       boolean validInput = false;
       while (!validInput) {
-        String s = readUserInput(inputPrompt);
-        if (s.equals("N") || s.equals("n")) {
+        String s = readUserInput(inputPrompt).toUpperCase();
+        if (s.equals("N")) {
           firstLine.set(i, "Name");
           validInput = true;
         }
-        else if (s.equals("E") || s.equals("e")) {
+        else if (s.equals("E")) {
           firstLine.set(i, "Email");
           validInput = true;
         }
-        else if (s.equals("P") || s.equals("p")) {
+        else if (s.equals("P")) {
           firstLine.set(i, "PhoneNumber");
           validInput = true;
         }

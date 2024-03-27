@@ -24,5 +24,5 @@ public enum AttendanceStatus {
           }
       }
       throw new IllegalArgumentException("No direction found with shortCode: " + shortCode);
-  }
+    }
 }

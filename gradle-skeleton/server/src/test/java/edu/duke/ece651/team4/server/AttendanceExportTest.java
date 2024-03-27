@@ -57,6 +57,6 @@ public class AttendanceExportTest {
     User student = new Student(phone, name, email);
     att.getExcuse().put(student, "sick");
     String js = atte.exportAttendanceToJson(att);
-    atte.writeJsonIntoFile(js, att);
+    // atte.writeJsonIntoFile(js, att);
   }
 }
