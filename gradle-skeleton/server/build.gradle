@@ -17,7 +17,7 @@ application {
     //mainClassName = 'GmailQuickstart'
 }
 
-run{
+run {
     standardInput = System.in
 }
 
