@@ -57,6 +57,11 @@ subprojects{
 
 // Project specific stuff
 project (':shared'){
+    dependencies {
+        implementation 'org.postgresql:postgresql:42.2.23'
+        implementation project(':UserAdminApp')
+        implementation project(':CourseManagementApp')
+    }
 }
 project (':server'){
     apply plugin: 'application'
