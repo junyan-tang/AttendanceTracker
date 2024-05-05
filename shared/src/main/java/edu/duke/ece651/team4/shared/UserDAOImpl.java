@@ -20,8 +20,8 @@ public class UserDAOImpl implements UserDAO {
         Connection conn = DatabaseConnectionUtil.getConnection();
         try {
             Statement stmt = conn.createStatement();
-            String sql = "INSERT INTO user_ (netid, firstName, lastName," +
-                    "password, preferredName, identity, email) VALUES ('" +
+            String sql = "INSERT INTO users (netid, first_name, last_name," +
+                    "password, preferred_name, identity, email) VALUES ('" +
                     user.netid + "', '" + user.firstName + "', '" + user.lastName + "', '" +
                     user.password + "', '" + user.preferredName + "', '" + user.identity + "', '" +
                     user.email + "')";
@@ -40,9 +40,9 @@ public class UserDAOImpl implements UserDAO {
         Connection conn = DatabaseConnectionUtil.getConnection();
         try {
             Statement stmt = conn.createStatement();
-            String sql = "UPDATE user_ SET firstName = '" + user.firstName + "', lastName = '" + user.lastName + "'," +
-                    "password = '" + user.password + "', preferredName = '" + user.preferredName + "', identity = '" +
-                    user.identity + "', email = '" + user.email + "' WHERE netid = '" + user.netid + "'";
+            String sql = "UPDATE users SET first_name = '" + user.firstName + "', last_name = '" + user.lastName + 
+                         "', preferred_name = '" + user.preferredName + "', identity = '" +
+                         user.identity + "', email = '" + user.email + "' WHERE netid = '" + user.netid + "'";
             stmt.executeUpdate(sql);
         } catch (Exception e) {
             e.printStackTrace();
@@ -58,7 +58,7 @@ public class UserDAOImpl implements UserDAO {
         Connection conn = DatabaseConnectionUtil.getConnection();
         try {
             Statement stmt = conn.createStatement();
-            String sql = "DELETE FROM user_ WHERE netid = '" + netid + "'";
+            String sql = "DELETE FROM users WHERE netid = '" + netid + "'";
             stmt.executeUpdate(sql);
         } catch (Exception e) {
             e.printStackTrace();
@@ -75,31 +75,26 @@ public class UserDAOImpl implements UserDAO {
         Connection conn = DatabaseConnectionUtil.getConnection();
         try {
             Statement stmt = conn.createStatement();
-            String sql = "SELECT * FROM user_ WHERE netid = '" + netid + "'";
+            String sql = "SELECT * FROM users WHERE netid = '" + netid + "'";
             ResultSet res = stmt.executeQuery(sql);
-            User user;
+            User user = null;
 
             if (res.next()) {
-                if (res.getString("identity") == "student") {
-                    user = new Student(res.getString("netid"), res.getString("firstName"), res.getString("lastName"),
-                            res.getString("password"),
-                            res.getString("preferredName"), res.getString("identity"), res.getString("email"));
+                if (res.getString("identity").equals("student")) {
+                    user = new Student(res.getString("netid"), res.getString("first_name"), res.getString("last_name"),
+                                       res.getString("preferred_name"),
+                                       res.getString("password"),
+                                       res.getString("identity"), res.getString("email"));
+                } else if (res.getString("identity").equals("professor")) {
+                    user = new Professor(res.getString("netid"), res.getString("first_name"), res.getString("last_name"),
+                                         res.getString("preferred_name"),        
+                                         res.getString("password"),
+                                         res.getString("identity"), res.getString("email"));
                 } else {
-                    user = new Professor(res.getString("netid"), res.getString("firstName"), res.getString("lastName"),
-                            res.getString("password"),
-                            res.getString("preferredName"), res.getString("identity"), res.getString("email"));
+                    user = new Admin(res.getString("netid"), res.getString("password"),res.getString("identity"));
                 }
-                return user;
             }
-
-            // user.netid = res.getString("netid");
-            // user.firstName = res.getString("firstName");
-            // user.lastName = res.getString("lastName");
-            // user.password = res.getString("password");
-            // user.preferredName = res.getString("preferredName");
-            // user.identity = res.getString("identity");
-
-            return null;
+            return user;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -116,7 +111,7 @@ public class UserDAOImpl implements UserDAO {
         Connection conn = DatabaseConnectionUtil.getConnection();
         try {
             Statement stmt = conn.createStatement();
-            String sql = "SELECT * FROM user_ WHERE netid = '" + netid + "' AND password = '" + password + "'";
+            String sql = "SELECT * FROM users WHERE netid = '" + netid + "' AND password = '" + password + "'";
             ResultSet res = stmt.executeQuery(sql);
             if (res.next() == false) {
                 return 2;
@@ -140,12 +135,15 @@ public class UserDAOImpl implements UserDAO {
         Connection conn = DatabaseConnectionUtil.getConnection();
         try {
             Statement stmt = conn.createStatement();
-            String sql = "SELECT * FROM user_ WHERE netid = '" + netid + "'";
+            String sql = "SELECT * FROM users WHERE netid = '" + netid + "'";
             ResultSet res = stmt.executeQuery(sql);
-            if (res.getString("identity") == "student") {
+            if(res.next() == false){
                 return false;
-            } else {
+            }
+            if (res.getString("identity").equals("professor")) {
                 return true;
+            } else {
+                return false;
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -158,12 +156,12 @@ public class UserDAOImpl implements UserDAO {
         Connection conn = DatabaseConnectionUtil.getConnection();
         try {
             Statement stmt = conn.createStatement();
-            String sql = "SELECT * FROM user_ WHERE identity = 'professor'";
+            String sql = "SELECT * FROM users WHERE identity = 'professor'";
             ResultSet res = stmt.executeQuery(sql);
             while (res.next()) {
-                User user = new Professor(res.getString("netid"), res.getString("firstName"), res.getString("lastName"),
-                        res.getString("password"),
-                        res.getString("preferredName"), res.getString("identity"), res.getString("email"));
+                User user = new Professor(res.getString("netid"), res.getString("first_name"), res.getString("last_name"),
+                res.getString("preferred_name"), res.getString("password"),
+                         res.getString("identity"), res.getString("email"));
                 professors.add(user);
             }
             return professors;
@@ -178,12 +176,11 @@ public class UserDAOImpl implements UserDAO {
         Connection conn = DatabaseConnectionUtil.getConnection();
         try {
             Statement stmt = conn.createStatement();
-            String sql = "SELECT * FROM user_ WHERE identity = 'student'";
+            String sql = "SELECT * FROM users WHERE identity = 'student'";
             ResultSet res = stmt.executeQuery(sql);
             while (res.next()) {
-                User user = new Student(res.getString("netid"), res.getString("firstName"), res.getString("lastName"),
-                        res.getString("password"),
-                        res.getString("preferredName"), res.getString("identity"), res.getString("email"));
+                User user = new Student(res.getString("netid"), res.getString("first_name"), res.getString("last_name"),
+                res.getString("preferred_name"), res.getString("password"), res.getString("identity"), res.getString("email"));
                 students.add(user);
             }
             return students;
@@ -196,7 +193,7 @@ public class UserDAOImpl implements UserDAO {
     public boolean isStudent(String netid) {
         try (Connection conn = DatabaseConnectionUtil.getConnection()) {
             Statement stmt = conn.createStatement();
-            String sql = "SELECT * FROM user_ WHERE netid = '" + netid + "'";
+            String sql = "SELECT * FROM users WHERE netid = '" + netid + "'";
             ResultSet res = stmt.executeQuery(sql);
             if (res.next() == false) {
                 return false;
@@ -238,9 +235,12 @@ public class UserDAOImpl implements UserDAO {
         try {
             Statement stmt = conn.createStatement();
             for (String netid : netidList) {
-                String sql = "SELECT * FROM user_ WHERE netid = '" + netid + "'";
+                String sql = "SELECT * FROM users WHERE netid = '" + netid + "'";
                 ResultSet res = stmt.executeQuery(sql);
-                usernameList.add(res.getString("firstName") + " " + res.getString("lastName"));
+                if(res.next() == false){
+                    continue;
+                }
+                usernameList.add(res.getString("first_name") + " " + res.getString("last_name"));
             }
             return usernameList;
         } catch (SQLException e) {
@@ -257,8 +257,11 @@ public class UserDAOImpl implements UserDAO {
             Statement stmt = conn.createStatement();
             for (String username : usernameList) {
                 String[] name = username.split(" ");
-                String sql = "SELECT * FROM user_ WHERE firstName = '" + name[0] + "' AND lastName = '" + name[1] + "'";
+                String sql = "SELECT * FROM users WHERE first_name = '" + name[0] + "' AND last_name = '" + name[1] + "'";
                 ResultSet res = stmt.executeQuery(sql);
+                if(res.next() == false){
+                    continue;
+                }
                 netidList.add(res.getString("netid"));
             }
             return netidList;
@@ -272,9 +275,12 @@ public class UserDAOImpl implements UserDAO {
         Connection conn = DatabaseConnectionUtil.getConnection();
         try {
             Statement stmt = conn.createStatement();
-            String sql = "SELECT * FROM user_ WHERE netid = '" + netid + "'";
+            String sql = "SELECT * FROM users WHERE netid = '" + netid + "'";
             ResultSet res = stmt.executeQuery(sql);
-            return res.getString("firstName") + " " + res.getString("lastName");
+            if(res.next() == false){
+                return null;
+            }
+            return res.getString("first_name") + " " + res.getString("last_name");
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
@@ -287,8 +293,11 @@ public class UserDAOImpl implements UserDAO {
         try {
             Statement stmt = conn.createStatement();
             String[] name = username.split(" ");
-            String sql = "SELECT * FROM user_ WHERE firstName = '" + name[0] + "' AND lastName = '" + name[1] + "'";
+            String sql = "SELECT * FROM users WHERE first_name = '" + name[0] + "' AND last_name = '" + name[1] + "'";
             ResultSet res = stmt.executeQuery(sql);
+            if(res.next() == false){
+                return null;
+            }
             return res.getString("netid");
         } catch (SQLException e) {
             e.printStackTrace();

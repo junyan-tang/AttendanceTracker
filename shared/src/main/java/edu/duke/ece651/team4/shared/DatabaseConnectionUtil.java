@@ -9,19 +9,19 @@ import java.sql.Statement;
  */
 public class DatabaseConnectionUtil {
     private static Connection connection = null;
-    private static final String URL = "jdbc:postgresql://localhost:5432/attendance_tracker";
+    private static final String URL = "jdbc:postgresql://localhost:5432/new_att";
     private static final String USER = "postgres";
-    private static final String PASSWORD = "password";
+    private static final String PASSWORD = "passw0rd";
 
     /**
      * Establishes a connection according to specific URL and USER
      * @return A database connection
      */
     public static Connection getConnection() {
-        if(connection != null){
-            return connection;
-        }
         try {
+            if(connection != null && !connection.isClosed()){
+                return connection;
+            }
             connection = DriverManager.getConnection(URL, USER, PASSWORD);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -59,7 +59,8 @@ public class DatabaseConnectionUtil {
                                    "date DATE," +
                                    "status VARCHAR(255))";
             String rosterSQL = "CREATE TABLE IF NOT EXISTS roster (" +
-                               "sectionID VARCHAR(255) PRIMARY KEY," +
+                                "rosterID SERIAL PRIMARY KEY," +
+                               "sectionID VARCHAR(255)," +
                                "studentID VARCHAR(255)," +
                                "FOREIGN KEY (sectionID) REFERENCES section(sectionID)," +
                                "FOREIGN KEY (studentID) REFERENCES user_(netid))";

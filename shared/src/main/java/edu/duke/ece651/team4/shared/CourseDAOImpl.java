@@ -15,7 +15,7 @@ public class CourseDAOImpl implements CourseDAO{
         Connection conn = DatabaseConnectionUtil.getConnection();
         try{
             Statement stmt = conn.createStatement();
-            String sql = "INSERT INTO COURSE (courseID, courseName) VALUES ('" + 
+            String sql = "INSERT INTO COURSE (course_id, course_name) VALUES ('" + 
                         course.courseID + "', '" + course.courseName + "')";
             stmt.executeUpdate(sql);
         } catch (Exception e){
@@ -31,9 +31,9 @@ public class CourseDAOImpl implements CourseDAO{
         Connection conn = DatabaseConnectionUtil.getConnection();
         try{
             Statement stmt = conn.createStatement();
-            ResultSet res = stmt.executeQuery("SELECT * FROM COURSE WHERE courseID = '" + courseID+ "'");
+            ResultSet res = stmt.executeQuery("SELECT * FROM COURSE WHERE course_id = '" + courseID+ "'");
             while (res.next()){
-                Course course = new Course(res.getString("courseID"), res.getString("courseName"));
+                Course course = new Course(res.getString("course_id"), res.getString("course_name"));
                 return course;
             }
         } catch (SQLException e){
@@ -51,9 +51,9 @@ public class CourseDAOImpl implements CourseDAO{
         Connection conn = DatabaseConnectionUtil.getConnection();
         try {
             Statement stmt = conn.createStatement();
-            ResultSet res = stmt.executeQuery("SELECT * FROM COURSE WHERE courseName = '" + courseName + "'");
+            ResultSet res = stmt.executeQuery("SELECT * FROM COURSE WHERE course_name = '" + courseName + "'");
             while (res.next()) {
-                Course course = new Course(res.getString("courseID"), res.getString("courseName"));
+                Course course = new Course(res.getString("course_id"), res.getString("course_name"));
                 // System.out.println("1 done");
                 return course;
             }
@@ -70,7 +70,7 @@ public class CourseDAOImpl implements CourseDAO{
         Connection conn = DatabaseConnectionUtil.getConnection();
         try {
             Statement stmt = conn.createStatement();
-            String sql = "UPDATE COURSE SET courseName = '" + course.courseName + "' WHERE courseID = '" + course.courseID + "'";
+            String sql = "UPDATE COURSE SET course_name = '" + course.courseName + "' WHERE course_id = '" + course.courseID + "'";
             stmt.executeUpdate(sql);
         } catch (SQLException e){
             e.printStackTrace();
@@ -84,7 +84,7 @@ public class CourseDAOImpl implements CourseDAO{
         Connection conn = DatabaseConnectionUtil.getConnection();
         try {
             Statement stmt = conn.createStatement();
-            String sql = "DELETE FROM COURSE WHERE courseName = '" + courseName + "'";
+            String sql = "DELETE FROM COURSE WHERE course_name = '" + courseName + "'";
             stmt.executeUpdate(sql);
         } catch (SQLException e){
             e.printStackTrace();
@@ -103,7 +103,7 @@ public class CourseDAOImpl implements CourseDAO{
             ResultSet res = stmt.executeQuery("SELECT * FROM COURSE");
 
             while (res.next()) {
-                Course course = new Course(res.getString("courseID"), res.getString("courseName"));
+                Course course = new Course(res.getString("course_id"), res.getString("course_name"));
                 courses.add(course);
             }
         } catch (SQLException e){

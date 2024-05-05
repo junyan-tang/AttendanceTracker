@@ -7,4 +7,5 @@ public interface RosterDAO {
     public boolean isStudentInSection(String studentID, String sectionID);
     public void removeStudentFromSection(String studentID, String sectionID);
     public List<String> getStudentsInSection(String sectionID); 
+    public List<String> getSectionsOfStudent(String studentID);
 }

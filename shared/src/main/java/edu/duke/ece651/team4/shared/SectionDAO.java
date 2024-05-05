@@ -6,6 +6,7 @@ public interface SectionDAO {
     public void addSection(Section section);
     public Section getSection(String sectionID);
     public void removeSection(String sectionID);
+    public List<Section> getAllSections();
     public List<Section> getAllSectionsCour(String courseID);
     public List<Section> getAllSectionsTea(String teacherID);
     public void updateSection(Section section);
@@ -13,4 +14,7 @@ public interface SectionDAO {
     public boolean isTeacherHasSection(String teacherID);
     public List<Student> getAllStudentsInSection(String sectionID);
     public boolean isTeacherHasThatSection(String teacherID, String sectionID);
+
+    public Professor getProfessor(String sectionID);
+    public String generateWeekReport(String sectionID);
 }
