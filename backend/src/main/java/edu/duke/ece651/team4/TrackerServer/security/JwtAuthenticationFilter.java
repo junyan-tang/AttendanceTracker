@@ -57,17 +57,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
 
     private boolean validateToken(String authToken) {
     try {
-        // 使用与生成JWT相同的secret key来验证签名
         Algorithm algorithm = Algorithm.HMAC512("SecretKey".getBytes());
         JWTVerifier verifier = JWT.require(algorithm)
                                   .withIssuer("Attendance-Tracker")
-                                  .build(); // 重新构建与生成token时相同的条件
+                                  .build();
         verifier.verify(authToken);
-        return true; // 验证成功，返回true
+        return true; 
     } catch (JWTVerificationException exception) {
-        // 无效的签名/令牌过期/不符合预期的要求等
         System.out.println("JWTVerificationException"+exception.getMessage());
-        return false; // 验证失败，返回false
+        return false; 
     }
 }
 private String getUsernameFromJWT(String token) {
@@ -75,8 +73,7 @@ private String getUsernameFromJWT(String token) {
         DecodedJWT jwt = JWT.decode(token);
         return jwt.getSubject(); 
     } catch (JWTDecodeException exception){
-        // 处理异常，例如无法解码token
-        return null; // 解析失败，返回null
+        return null;
     }
 }
 }
